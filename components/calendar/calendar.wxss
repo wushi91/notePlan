@@ -1,0 +1,41 @@
+/* components/calendar/calendar.wxss */
+
+.week{
+  padding:24rpx 0 20rpx 0;
+  display: flex;
+  justify-content:space-around;
+  background: linear-gradient(#45BFF7, #30B0F0);
+}
+
+.day{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.day text{
+  color:rgba(23,116,163,1);
+  font-size:20rpx;
+  line-height:28rpx;
+}
+
+.day text:nth-child(2){
+  margin-top: 30rpx;
+  font-size:36rpx;
+  line-height:50rpx;
+}
+
+.point{
+  margin-top: 10rpx;
+  border-radius: 50%;
+  background-color: rgba(23,116,163,1);
+  width: 6rpx;
+  height: 6rpx;
+}
+
+
+.today text{
+  color:#FFFFFF;
+}
+.today .point{
+  background-color: #FFFFFF;
+}

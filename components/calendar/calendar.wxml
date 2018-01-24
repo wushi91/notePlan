@@ -1,0 +1,8 @@
+<view class='week'>
+  <view class='day {{item.isToday?"today":""}}' wx:for="{{days}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
+    <text>{{item.week}}</text>
+    <text>{{item.day}}</text>
+    <text>{{item.china_day}}</text>
+    <view wx:if="{{item.isToday||item.isSelect}}" class="point"></view>
+  </view>
+</view>

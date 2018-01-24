@@ -1,0 +1,89 @@
+/* components/planItem/planItem.wxss */
+
+.checkbox-wrapper{
+  height: 45rpx;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox{
+  height: 26rpx;
+  width: 26rpx;
+  border-radius: 6rpx;
+  margin-right: 24rpx;
+  border: 2rpx solid #63ADF7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*普通的日程  */
+.plan-item{
+  box-sizing: border-box;
+  position: relative;
+  background-color: white;
+  border-radius: 8rpx;
+  padding: 24rpx 50rpx 24rpx 36rpx;
+  display: flex;
+  border: 2px solid white;
+  margin: 36rpx;
+}
+
+.content-wrapper{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.content{
+  width: 486rpx;
+  font-size:32rpx;
+  color:rgba(51,51,51,1);
+  line-height:45rpx;
+  white-space: nowrap;  /*强制span不换行*/
+  display: inline-block;  /*将span当做块级元素对待*/
+  overflow: hidden;  /*超出宽度部分隐藏*/
+  text-overflow: ellipsis;  /*超出部分以点号代替*/
+}
+
+.time-wrapper{
+  display: flex;
+  align-items: center;
+}
+
+.time{
+  display: block;
+  font-size:24rpx;
+  color:rgba(153,153,153,1);
+  line-height:40rpx; 
+  flex: 1;
+}
+
+image.remind{
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/*已经完成的普通日程  */
+.plan-item.is-complete{
+  background:rgba(240,242,242,1);
+  border: 2px solid #EBEDED;
+}
+
+.plan-item.is-complete span{
+  color:rgba(179,179,179,1);
+}
+
+.plan-item.is-complete .content{
+  text-decoration:line-through;
+}
+
+/*全天的日程  */
+.plan-item.is-all-day{
+  align-items: center;
+}
+
+
+/* 已经完成的全天的日程 */
+

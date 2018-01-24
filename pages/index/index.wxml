@@ -1,0 +1,50 @@
+<!--index.wxml-->
+<view class="container">
+
+
+ <swiper circular="true"
+        duration="500">
+    <swiper-item>
+      <calendar></calendar>
+    </swiper-item>
+    <swiper-item>
+      <calendar></calendar>
+    </swiper-item>
+    <swiper-item>
+      <calendar></calendar>
+    </swiper-item>
+</swiper> 
+
+<swiper circular="true"
+        duration="500"
+        current="2"
+        bindchange="bindchange"
+        bindanimationfinish="bindanimationfinish">
+    <block wx:for="{{weeks}}" wx:key='index'>
+      <swiper-item>
+        <text>{{item.day}}</text>
+      </swiper-item>
+  </block>
+</swiper> 
+
+<!-- <button type="primary" bindtap="showDialog"> ClickMe! </button> -->
+
+
+
+</view>
+
+
+<!-- 
+  <view class='bottom-tab'>
+    <view class='item'>
+      <image class='item-image' src="/images/icon-tabbar-me-default.png"></image>
+      <text class='item-text'>日程</text>
+    </view>
+    <view class='center'></view>
+    <image class='center-image' src="/images/icon-tabbar-add-normal.png"></image>
+    <view class='item'>
+      <image class='item-image' src="/images/icon-tabbar-schedule-default.png"></image>
+      <text class='item-text'>我的</text>
+    </view>
+  </view> -->
+

@@ -1,0 +1,178 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+
+
+/* components/bottomTab/bottomTab.wxss */
+
+.bottom-tab-wrapper{
+  width: 100%;
+  background-color: beige;
+}
+
+.bottom-tab{
+  background-color: beige;
+  width: 100%;
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+}
+
+.item{
+  margin: 0 124rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+.item-image{
+  height: 44rpx;
+  width: 44rpx;
+  
+}
+
+.center-image{
+  height: 96rpx;
+  width: 96rpx;
+}
+
+.item-text{
+  font-size:70rpx;
+}
+
+text{
+  display: block;
+  font-size: 100rpx;
+}
+.blod100{
+  font-weight:100;
+}
+
+.blod300{
+  font-weight:300;
+}
+
+.blod500{
+  font-weight:500;
+}
+
+.blod700{
+  font-weight:700;
+}
+
+.blod900{
+  font-weight:900;
+}
+
+.blod{
+  font-weight:blod;
+}
+
+.bloder{
+  font-weight:bloder;
+}
+
+.lighter{
+  font-weight:lighter;
+}
+
+.normal{
+  font-weight:normal;
+}
+
+bottomTab{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+}
+
+.container{
+  background-color: gainsboro;
+}
+
+.checkbox{
+  margin: 10rpx;
+  height: 26rpx;
+  width: 26rpx;
+  border-radius: 6rpx;
+  margin-right: 24rpx;
+  border: 2rpx solid #63ADF7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.icon-check{
+  margin-bottom: -1rpx;
+  font-size: 12rpx;
+  color: #63ADF7;
+}
+
+.week{
+  padding:24rpx 0 20rpx 0;
+  display: flex;
+  justify-content:space-around;
+  background: linear-gradient(#45BFF7, #30B0F0);
+}
+
+.day{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.day text{
+  color:rgba(23,116,163,1);
+  font-size:20rpx;
+  line-height:28rpx;
+}
+
+.day text:nth-child(2){
+  margin-top: 30rpx;
+  font-size:36rpx;
+  line-height:50rpx;
+}
+
+.point{
+  margin-top: 10rpx;
+  border-radius: 50%;
+  background-color: rgba(23,116,163,1);
+  width: 6rpx;
+  height: 6rpx;
+}
+
+swiper{
+  height: 205rpx;
+}
+swiper-item{
+  background-color: greenyellow;
+  height: 205rpx;
+}
+

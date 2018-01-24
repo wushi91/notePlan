@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "bottomTab": "/components/bottomTab/bottomTab",
+    "planItem": "/components/planItem/planItem",
+    "calendar": "/components/calendar/calendar"
+  }
+}
