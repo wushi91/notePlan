@@ -169,10 +169,10 @@ bottomTab{
 }
 
 swiper{
-  height: 205rpx;
+  height: 196rpx;
 }
 swiper-item{
   background-color: greenyellow;
-  height: 205rpx;
+  height: 196rpx;
 }
 

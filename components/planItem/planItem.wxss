@@ -7,6 +7,7 @@
 }
 
 .checkbox{
+  box-sizing: border-box;
   height: 26rpx;
   width: 26rpx;
   border-radius: 6rpx;
@@ -17,6 +18,11 @@
   align-items: center;
 }
 
+image.completed{
+  height: 26rpx;
+  width: 26rpx;
+  margin-right: 24rpx;
+}
 
 /*普通的日程  */
 .plan-item{
@@ -28,6 +34,7 @@
   display: flex;
   border: 2px solid white;
   margin: 36rpx;
+  
 }
 
 .content-wrapper{

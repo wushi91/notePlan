@@ -28,7 +28,8 @@ class Plan {
   /*isCompleted是否已经完成
   isCanEdit是否可以修改或删除
   */
-  constructor(content, isAllDay, isCompleted,isCanEdit,beginTime,overTime,repeatType,palnType,remindType,remark) {
+  constructor(planId, content, isAllDay, isCompleted,isCanEdit,beginTime,overTime,repeatType,palnType,remindType,remark,creatTime,updateTime) {
+    this.planId = planId
     this.isCompleted = isCompleted
     this.isCanEdit = isCanEdit
     this.content = content
@@ -40,6 +41,9 @@ class Plan {
     this.palnType = palnType
     this.remindType = remindType
     this.remark = remark
+
+    this.creatTime = creatTime
+    this.updateTime = updateTime
   }
 
   

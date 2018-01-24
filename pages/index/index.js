@@ -17,7 +17,10 @@ Page({
     autoplay: true,
     interval: 2000,
     duration: 500,
-    weeks: [{ day: 14 }, { day: 15 }, { day: 16 }, { day: 17 }, { day: 18 }]
+    page1:{ day: 14},
+    page2:{day:15},
+    page3: { day: 16 },
+    
   },
   //事件处理函数
   bindViewTap: function() {
@@ -25,15 +28,70 @@ Page({
       url: '../logs/logs'
     })
   },
-  bindchange(){
+  bindchange(e){
+    console.log("-----------")
     console.log("bindchange")
-    let weeks = this.data.weeks
+    console.log(e)
+    // let weeks = this.data.weeks
 
-    weeks.push({ day: weeks[weeks.length - 1].day + 1 })
-    console.log(weeks)
-    this.setData({
-      weeks: weeks
-    })
+    // weeks.push({ day: weeks[weeks.length - 1].day + 1 })
+    // console.log(weeks)
+    // this.setData({
+    //   weeks: weeks
+    // })
+
+    if (e.detail.current === 0) {
+      //到了page1，设置上下页的数据,上一页是page3,下一页是page2
+      let page3 = this.data.page3
+      let page2 = this.data.page2
+      page3.day = this.data.page1.day - 1
+      page2.day = this.data.page1.day + 1
+      this.setData({
+        page3: page3,
+        page2: page2
+      })
+    }
+
+    if (e.detail.current === 1) {
+      //到了page2，设置上下页的数据,上一页是page1,下一页是page3
+      let page1 = this.data.page1
+      let page3 = this.data.page3
+      page1.day = this.data.page2.day - 1
+      page3.day = this.data.page2.day + 1
+      this.setData({
+        page1: page1,
+        page3: page3
+      })
+    }
+
+    if (e.detail.current===2){
+      //到了page3，设置上下页的数据,上一页是page2,下一页是page1
+      let page1 = this.data.page1
+      let page2 = this.data.page2
+      
+      page2.day = this.data.page3.day-1
+      page1.day = this.data.page3.day + 1
+      
+      this.setData({
+        page2: page2,
+        page1: page1
+      })
+    }
+    //设置上一页的数据
+    if(e.detail.currejt===0){
+      //上一页是page3,下一页是page2
+      let page3 = this.data.page3
+      let page2 = this.data.page2
+      page3.day = this.data.page1.day - 1
+      page2.day = this.data.page1.day + 1
+      this.setData({
+        page2: page2,
+        page3: page3
+      })
+      console.log(this.data.page1)
+      console.log(this.data.page3)
+    }
+      
   },
   bindanimationfinish(){
     

@@ -4,7 +4,6 @@
 <view class='plan-item'>
   <view class='checkbox-wrapper'>
     <view class='checkbox'>
-      <text class='icon-check'></text>
     </view>
   </view>
 
@@ -20,9 +19,8 @@
 <!-- 已经完成的普通日程 -->
 <view class='plan-item is-complete'>
   <view class='checkbox-wrapper'>
-    <view class='checkbox'>
-      <text class='icon-check'></text>
-    </view>
+    <image class='completed' 
+           src='/images/icon-done.png'></image>
   </view>
 
   <view class='content-wrapper'>
@@ -36,7 +34,9 @@
 
 
 <view class='plan-item is-all-day'>
-  <view class='checkbox-wrapper'><view class='checkbox'></view></view>
+  <view class='checkbox-wrapper'>
+    <view class='checkbox'></view>
+  </view>
   <view class='content-wrapper'>
     <span class='content'>行动管理笔记视觉稿设计行动管理笔记视觉稿设计行动管理笔记视觉稿设计行动管理笔记视觉稿设计</span>
   </view>
@@ -44,7 +44,10 @@
 </view>
 
 <view class='plan-item is-all-day is-complete'>
-  <view class='checkbox-wrapper'><view class='checkbox'></view></view>
+  <view class='checkbox-wrapper'>
+    <image class='completed' 
+           src='/images/icon-done.png'></image>
+  </view>
   <view class='content-wrapper'>
     <span class='content'>行动管理笔记视觉稿设计</span>
   </view>

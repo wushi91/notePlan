@@ -5,6 +5,8 @@
   display: flex;
   justify-content:space-around;
   background: linear-gradient(#45BFF7, #30B0F0);
+  height: 196rpx;
+  box-sizing: border-box;
 }
 
 .day{
