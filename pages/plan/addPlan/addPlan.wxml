@@ -1,0 +1,62 @@
+<!--pages/plan/addPlan/addPlan.wxml-->
+
+<view class='add-plan'>
+
+<view class='content-wrapper'>
+  <input class='font-normal-black-32'
+         bindinput="bindPlanContent" 
+         placeholder-style="color:rgba(166,166,166,1);" 
+         maxlength='20' 
+         placeholder="请输入你的日程或计划" />
+</view>
+
+
+<view class='all-day-wrapper'>
+    <text class='font-normal-black-32'>全天事件</text>
+    <image class='checkbox' src='/images/icon-alldayevent-off.png'></image>
+</view>
+
+<view class='time-wrapper'>
+  <view class='time-item begin-time-wrapper'>
+    <text class='font-normal-black-32'>开始</text>
+    <text class='font-normal-black-32'>1月20日  周六</text>
+    <text class='font-normal-black-32'>14:00</text>
+  </view>
+
+  <view class='time-item over-time-wrapper'>
+    <text class='font-normal-black-32'>结束</text>
+    <text class='font-normal-black-32'>1月20日  周六</text>
+    <text class='font-normal-black-32'>18:00</text>
+  </view>
+
+  <view class='time-item repeat'>
+    <text class='font-normal-black-32'>每天重复</text>
+  </view>
+</view>
+
+<view class='item-wrapper'>
+  <text class='font-normal-black-32'>工作</text>
+  <view class="point"></view>
+</view>
+
+<view class='item-wrapper'>
+  <text class='font-normal-black-32'>事件发生时提醒</text>
+</view>
+
+
+<view class='remark-wrapper'
+      style='padding:{{jianrong_margin_top}}rpx {{jianrong_margin_left}}rpx;'>
+  <textarea class="font-normal-black-32"
+            placeholder-style="color:rgba(166,166,166,1);" 
+            maxlength='60' 
+            placeholder="备注（选填）"></textarea>
+  <text class='length-tip font-normal-gray-24'
+        style='padding:0 {{jianrong_margin_left}}rpx {{jianrong_margin_top}}rpx 0;'>
+        60</text>
+</view>
+
+<view>
+  <button class='my-button save-plan' >保存</button>
+</view>
+
+</view>

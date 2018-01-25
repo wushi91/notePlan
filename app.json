@@ -1,12 +1,17 @@
 {
-  "pages":[
+  "pages": [
+    "pages/plan/addPlan/addPlan",
     "pages/index/index",
-    "pages/logs/logs"
+    
+    
+    "pages/logs/logs",
+    "pages/plan/planDetail/planDetail"
+    
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#45BFF7",
     "navigationBarTitleText": "行动管理笔记",
-    "navigationBarTextStyle":"light"
+    "navigationBarTextStyle": "light"
   }
 }

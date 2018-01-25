@@ -35,7 +35,7 @@
   </swiper-item>
 </swiper>  -->
 
-<bottomTab></bottomTab>
+<bottomTab bindcatchItemTab='catchItemTab'></bottomTab>
 
 
 <!-- 

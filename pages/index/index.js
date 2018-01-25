@@ -28,6 +28,29 @@ Page({
       url: '../logs/logs'
     })
   },
+
+
+  toAddPlanPage: function () {
+    wx.navigateTo({
+      url: "/pages/plan/addPlan/addPlan"
+    })
+  },
+
+  catchItemTab(e) {
+    switch (e.detail.tabItem) {
+      case -1://
+        this.toAddPlanPage()
+        console.log('点击了添加日程')
+        break;
+      case 0://
+        console.log('点击了日程列表')
+        break;
+      case 1://
+        console.log('点击了我的')
+        break;
+    }
+  },
+
   bindchange(e){
     console.log("-----------")
     console.log("bindchange")
@@ -146,8 +169,5 @@ Page({
     this.dialog.showDialog();
   },
 
-  catchItemTab(e){
-    console.log(e.detail.tabItem)
-  }
-
+  
 })

@@ -1,0 +1,130 @@
+/* pages/plan/addPlan/addPlan.wxss */
+.content-wrapper{
+  padding: 0 30rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 30rpx;
+}
+input{
+  width: 100%;
+  height: 100%;
+}
+
+
+/*all-day-wrapper  */
+
+.all-day-wrapper{
+  display: flex;
+  background-color: white;
+ 
+}
+.all-day-wrapper text{
+  margin-top: 26rpx;
+  margin-left: 30rpx;
+  flex: 1;
+}
+image.checkbox{
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 10rpx;
+}
+
+
+/*time-wrapper */
+.time-wrapper{
+  background-color: white;
+  padding: 4rpx 30rpx 25rpx 30rpx;
+}
+
+/*begin-time-wrapper  */
+.time-item{
+  height: 45rpx;
+  display: flex;
+  align-items: center;
+}
+.time-item + .time-item {
+  margin-top: 52rpx;
+}
+.time-item :first-child{
+  flex: 1;
+}
+.time-item :nth-child(3){
+  margin-left: 96rpx;
+}
+
+
+/* item-wrapper  */
+.item-wrapper{
+  height: 96rpx;
+  display: flex; 
+  align-items: center;
+  background-color: white;
+  padding: 0 30rpx;
+  margin-top: 30rpx;
+}
+.point{
+  margin-left: 20rpx;
+}
+
+
+/*remark-wrapper  */
+.remark-wrapper{
+  margin-top: 30rpx;
+  height: 144rpx;
+  background-color: white;
+   position: relative; 
+}
+
+.remark-wrapper textarea{
+  width: 100%;
+  height: 100%;
+  line-height: 48rpx;
+}
+
+.remark-wrapper text.length-tip{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+button.save-plan{
+  position: absolute;
+  border: none;
+  border-radius: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 108rpx;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+button.save-plan::after{
+  border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
