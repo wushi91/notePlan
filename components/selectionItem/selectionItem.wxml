@@ -1,0 +1,20 @@
+<!--components/selectionItem/selectionItem.wxml-->
+<view class='item-wrapper' >
+  <view class='item select-item' 
+        wx:if="{{hasSelected}}"
+        bindtap='showSelection'>
+    <text class='item-title {{selectItem?"select-color":""}}'>{{selectItem?selectItem.label:itemList[0].label}}</text>
+    <view class="item-point" wx:if="{{itemList[0].color?true:false}}" style='background-color:{{selectItem?selectItem.color:itemList[0].color}}'></view>
+  </view>
+
+  <view class='item' 
+        wx:if="{{!hasSelected}}"
+        data-item = "{{item}}"
+        bindtap='toSelect' 
+        wx:for="{{itemList}}" 
+        wx:key="{{index}}">
+    <text  class='item-title {{item.prop === selectItem.prop?"select-color":""}}'>{{item.label}}</text>
+    <view class="item-point" wx:if="{{item.color?true:false}}" style='background-color:{{item.color}}'></view>
+  </view>
+  
+</view>

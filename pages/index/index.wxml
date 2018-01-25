@@ -1,5 +1,7 @@
 <!--index.wxml-->
 
+<selectionItem></selectionItem>
+
 
  <swiper circular="true"
         duration="500">

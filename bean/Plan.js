@@ -50,6 +50,7 @@ class Plan {
 
 
 }
-export default{ 
-  Plan 
-}; 
+
+
+module.exports = Plan
+

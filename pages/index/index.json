@@ -2,6 +2,7 @@
   "usingComponents": {
     "bottomTab": "/components/bottomTab/bottomTab",
     "planItem": "/components/planItem/planItem",
-    "calendar": "/components/calendar/calendar"
+    "calendar": "/components/calendar/calendar",
+    "selectionItem": "/components/selectionItem/selectionItem"
   }
 }
