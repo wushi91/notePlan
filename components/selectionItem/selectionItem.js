@@ -5,30 +5,38 @@ Component({
    */
   properties: {
 
+    defaultItem: { // 属性名
+      type: Object, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
+      value: '' // 属性初始值（可选），如果未指定则会根据类型选择一个
+    },
+    itemList:{
+      type: Array,
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    defaultItem:'',
+    
     selectItem:'',
-    hasSelected:true,
-    itemList:[{ prop: "work", label: "工作", color: '#63ADF7' },
-    { prop: "study", label: "学习", color: '#6FDE6F' },
-    { prop: "sport", label: "运动", color: '#F7A863' },
-    { prop: "life", label: "生活", color: '#DB86F0' },
-    { prop: "play", label: "娱乐", color: '#F77C80' }],
-    PLANTYPES :[{ prop: "work", label: "工作", color: '#63ADF7' },
-    { prop: "study", label: "学习", color: '#6FDE6F' },
-    { prop: "sport", label: "运动", color: '#F7A863' },
-    { prop: "life", label: "生活", color: '#DB86F0' },
-    { prop: "play", label: "娱乐", color: '#F77C80' }],
-    REPEATTYPES :[{ prop: "no-repeat", label: "不重复" },
-    { prop: "day-repeat", label: "每天重复" },
-    { prop: "week-repeat", label: "每周重复" },
-    { prop: "month-repeat", label: "每月重复" },
-    { prop: "year-repeat", label: "每年重复" }]
+    isSelecting:false,
+    // defaultItem: { prop: "play", label: "娱乐", color: '#F77C80' },
+    // itemList:[{ prop: "work", label: "工作", color: '#63ADF7' },
+    // { prop: "study", label: "学习", color: '#6FDE6F' },
+    // { prop: "sport", label: "运动", color: '#F7A863' },
+    // { prop: "life", label: "生活", color: '#DB86F0' },
+    // { prop: "play", label: "娱乐", color: '#F77C80' }],
+    // PLANTYPES :[{ prop: "work", label: "工作", color: '#63ADF7' },
+    // { prop: "study", label: "学习", color: '#6FDE6F' },
+    // { prop: "sport", label: "运动", color: '#F7A863' },
+    // { prop: "life", label: "生活", color: '#DB86F0' },
+    // { prop: "play", label: "娱乐", color: '#F77C80' }],
+    // REPEATTYPES :[{ prop: "no-repeat", label: "不重复" },
+    // { prop: "day-repeat", label: "每天重复" },
+    // { prop: "week-repeat", label: "每周重复" },
+    // { prop: "month-repeat", label: "每月重复" },
+    // { prop: "year-repeat", label: "每年重复" }]
   },
 
   /**
@@ -36,19 +44,21 @@ Component({
    */
   methods: {
     showSelection(){
-      console.log('toSelection')
+      // console.log('toSelection')
 
       this.setData({
-        hasSelected: false
+        isSelecting: true
       })
     },
 
     toSelect(e){
-      console.log(e.currentTarget.dataset.item)
+      // console.log(e.currentTarget.dataset.item)
       this.setData({
-        hasSelected: true,
+        isSelecting: false,
         selectItem: e.currentTarget.dataset.item
       })
+
+      this.triggerEvent("tabSelectionItem", { selectionItem: e.currentTarget.dataset.item })
     }
   }
 })

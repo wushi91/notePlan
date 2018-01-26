@@ -1,8 +1,5 @@
 <!--index.wxml-->
 
-<selectionItem></selectionItem>
-
-
  <swiper circular="true"
         duration="500">
     <swiper-item>
@@ -16,7 +13,7 @@
     </swiper-item>
 </swiper> 
 
-<planItem></planItem>
+<planItem wx:for="{{planList}}" wx:key="index" plan="{{item}}"></planItem>
 
 <!-- 
 <swiper circular="true"

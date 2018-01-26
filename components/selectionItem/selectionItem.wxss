@@ -5,16 +5,20 @@
 } */
 
 /* item-wrapper  */
-.item-wrapper{
+.selection-item-wrapper{
   background-color: white;
   padding: 0rpx 30rpx; 
 }
 
 .item{
-  padding: 26rpx 0;
+  padding: 20rpx 0;
   height: 45rpx;
   display: flex; 
   align-items: center;
+}
+
+.item.select-item{
+  padding: 26rpx 0;
 }
 
 .item-title{
@@ -31,6 +35,13 @@
   height: 12rpx;
 }
 
-.select-color{
+.item-title-black{
   color:rgba(51,51,51,1); 
 }
+
+.selection-wrapper {
+  padding:6rpx 0;
+}
+
+
+

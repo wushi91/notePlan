@@ -14,7 +14,7 @@
 
 <view class='all-day-wrapper'>
     <text class='font-normal-black-32'>全天事件</text>
-    <image class='checkbox' src='{{isAllDay?"/images/icon-alldayevent-on.png":"/images/icon-alldayevent-off.png"}}'></image>
+    <image class='checkbox' bindtap="bindAllDayCheckChange" src='{{isAllDay?"/images/icon-alldayevent-on.png":"/images/icon-alldayevent-off.png"}}'></image>
 </view>
 
 <view class='time-wrapper'>
@@ -24,8 +24,8 @@
             value="{{beginDate}}" 
             start="1979-01-01" 
             end="2049-12-31" 
-            bindchange="bindDateChange">
-      <text class='font-normal-black-32'>{{beginDate}}  周六</text>
+            bindchange="bindBeginDateChange">
+      <text class='font-normal-black-32'>{{beginDateText}}  周{{beginWeek}}</text>
     </picker>
   </view>
 
@@ -36,15 +36,15 @@
             value="{{beginDate}}" 
             start="1979-01-01" 
             end="2049-12-31" 
-            bindchange="bindDateChange">
-      <text class='font-normal-black-32'>{{beginDate}}  周六</text>
+            bindchange="bindBeginDateChange">
+      <text class='font-normal-black-32'>{{beginDateText}}  周{{beginWeek}}</text>
     </picker>
 
     <picker mode="time" 
             value="{{beginTime}}" 
             start="00:00" 
             end="23:59" 
-            bindchange="bindDateChange">
+            bindchange="bindBeginTimeChange">
       <text class='font-normal-black-32'>{{beginTime}}</text>
     </picker>
   </view>
@@ -55,32 +55,39 @@
             value="{{overDate}}" 
             start="1979-01-01" 
             end="2049-12-31" 
-            bindchange="bindDateChange">
-      <text class='font-normal-black-32'>{{overDate}}  周六</text>
+            bindchange="bindOverDateChange">
+      <text class='font-normal-black-32'>{{overDateText}}  周{{overWeek}}</text>
     </picker>
 
     <picker mode="time" 
-            value="{overTime}}" 
+            value="{{overTime}}" 
             start="00:00" 
             end="23:59" 
-            bindchange="bindDateChange">
+            bindchange="bindOverTimeChange">
       <text class='font-normal-black-32'>{{overTime}}</text>
     </picker>
   </view>
-
-  <view class='time-item repeat'>
-    <text class='font-normal-black-32'>每天重复</text>
-  </view>
 </view>
 
-<view class='item-wrapper'>
-  <text class='font-normal-black-32'>工作</text>
-  <view class="point"></view>
+<selectionItem defaultItem="{{repeatType_selectItem}}" 
+               itemList="{{repeatType_itemList}}"
+               bindtabSelectionItem="bindtabRepeatTypeSelectionItem"></selectionItem>
+
+<view class="selection-item">
+<!-- 工作 -->
+<selectionItem 
+               defaultItem="{{palnType_selectItem}}" 
+               itemList="{{palnType_itemList}}"></selectionItem>
 </view>
 
-<view class='item-wrapper'>
-  <text class='font-normal-black-32'>事件发生时提醒</text>
+<view class="selection-item">
+<!--事件发生时提醒  -->
+<selectionItem 
+               defaultItem="{{remindType_selectItem}}" 
+               itemList="{{remindType_itemList}}"></selectionItem>
 </view>
+
+
 
 
 <view class='remark-wrapper'
@@ -88,14 +95,16 @@
   <textarea class="font-normal-black-32"
             placeholder-style="color:rgba(166,166,166,1);" 
             maxlength='60' 
-            placeholder="备注（选填）"></textarea>
+            value='{{remark}}'
+            placeholder="备注（选填）"
+            bindinput="bindPlanRemark" ></textarea>
   <text class='length-tip font-normal-gray-24'
         style='padding:0 {{jianrong_margin_left}}rpx {{jianrong_margin_top}}rpx 0;'>
         60</text>
 </view>
 
 <view>
-  <button class='my-button save-plan' >保存</button>
+  <button class='my-button save-plan' disabled='{{!content}}' bindtap='toSavePlan'>保存</button>
 </view>
 
 </view>

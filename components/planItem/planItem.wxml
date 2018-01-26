@@ -8,7 +8,7 @@
   </view>
 
   <view class='content-wrapper'>
-    <span class='content'>行动管理笔记视觉稿设计</span>
+    <span class='content'>{{plan.content}}</span>
     <view  class='time-wrapper'>
       <span class='time'>14:00 - 18:30</span>
       <image class='remind' src='/images/icon-alarm.png'></image>
@@ -17,7 +17,7 @@
 </view>
 
 <!-- 已经完成的普通日程 -->
-<view class='plan-item is-complete'>
+<!-- <view class='plan-item is-complete'>
   <view class='checkbox-wrapper'>
     <image class='completed' 
            src='/images/icon-done.png'></image>
@@ -52,4 +52,4 @@
     <span class='content'>行动管理笔记视觉稿设计</span>
   </view>
   <image class='remind' src='/images/icon-alarm.png'></image>
-</view>
+</view> -->

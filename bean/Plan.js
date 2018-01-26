@@ -28,12 +28,17 @@ class Plan {
   /*isCompleted是否已经完成
   isCanEdit是否可以修改或删除
   */
-  constructor(planId, content, isAllDay, isCompleted,isCanEdit,beginTime,overTime,repeatType,palnType,remindType,remark,creatTime,updateTime) {
+  constructor(planId, content, isAllDay, isCompleted,isCanEdit,
+  beginDate, overDate,beginTime,overTime,
+  repeatType,palnType,remindType,remark,creatTime,updateTime) {
     this.planId = planId
     this.isCompleted = isCompleted
     this.isCanEdit = isCanEdit
     this.content = content
     this.isAllDay = isAllDay
+
+    this.beginDate = beginDate
+    this.overDate = overDate
     this.beginTime = beginTime
     this.overTime = overTime
 
@@ -46,6 +51,27 @@ class Plan {
     this.updateTime = updateTime
   }
 
+
+  toString(){
+    // this.planId, content, isAllDay, isCompleted, isCanEdit, beginTime, overTime, repeatType, palnType, remindType, remark, creatTime, updateTime
+
+    let planId = this.planId
+    let content = this.content
+    let isAllDay = this.isAllDay
+    let isCompleted = this.isCompleted
+    let isCanEdit = this.isCanEdit
+    let beginTime = this.beginTime
+    let overTime = this.overTime
+    let repeatType = this.repeatType
+    let palnType = this.palnType
+    let remindType = this.remindType
+    let remark = this.remark
+    let creatTime = this.creatTime
+    let updateTime = this.updateTime
+    
+    let plan = { planId, content, isAllDay, isCompleted, isCanEdit, beginTime, overTime, repeatType, palnType, remindType, remark, creatTime, updateTime }
+    return JSON.stringify(plan)
+  }
   
 
 

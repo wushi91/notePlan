@@ -1,4 +1,5 @@
-//index.js
+// const Plan = require('../../bean/Plan.js')
+const dbUtil = require('../../utils/dbUtil.js')
 //获取应用实例
 const app = getApp()
 
@@ -20,7 +21,16 @@ Page({
     page1:{ day: 14},
     page2:{day:15},
     page3: { day: 16 },
+
+    defaultItem: { prop: "play", label: "娱乐", color: '#F77C80' },
+    itemList: [{ prop: "work", label: "工作", color: '#63ADF7' },
+    { prop: "study", label: "学习", color: '#6FDE6F' },
+    { prop: "sport", label: "运动", color: '#F7A863' },
+    { prop: "life", label: "生活", color: '#DB86F0' },
+    { prop: "play", label: "娱乐", color: '#F77C80' }],
     
+    planList:[],
+   
   },
   //事件处理函数
   bindViewTap: function() {
@@ -122,6 +132,9 @@ Page({
     
   },
   onLoad: function () {
+    
+
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -164,7 +177,28 @@ Page({
     //获得dialog组件
     // this.dialog = this.selectComponent("#dialog");
   },
+  /**
+     * 生命周期函数--监听页面显示
+     */
+  onShow: function () {
+    let date = new Date()
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let day = date.getDate()
+    let week = date.getDay() + 1
 
+    let planList = []
+
+    let stringList = dbUtil.getPlan(year, month, day, week)
+    for (let i = 0; i < stringList.length; i++) {
+      let item = stringList[i]
+      let newItem = JSON.parse(item)
+      planList.push(newItem)
+    }
+    this.setData({
+      planList: planList
+    })
+  },
   showDialog() {
     this.dialog.showDialog();
   },

@@ -1,6 +1,6 @@
-// pages/plan/addPlan/addPlan.js
+  // pages/plan/addPlan/addPlan.js
 const Plan = require('../../../bean/Plan.js')
-
+const dbUtil = require('../../../utils/dbUtil.js')
 Page({
 
   /**
@@ -13,23 +13,35 @@ Page({
     jianrong_margin_top :26,
     jianrong_margin_left : 30,
     
-    content:'ssss',
-    isAllDay:true,
-    beginDate:'2018/01/25',
-    beginTime:'09:00',
-    overDate:'2018/01/26',
-    overTime:'19:00',
-    repeatType: Plan.REPEATTYPES[0],
-    palnType: Plan.PLANTYPES[0].prop,
-    remindType: Plan.REMINDTYPES[0].prop,
-    remark:'---',
-  },
+    content:'',
+    isAllDay:false,
+    beginDateText: (new Date().getMonth() + 1) + '月' + new Date().getDate()+"日",
+    overDateText: (new Date().getMonth() + 1) + '月' + new Date().getDate() + "日",
+    beginDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+    overDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+    beginWeek: new Date().getDay() + 1,
+    overWeek: new Date().getDay() + 1,
+    beginTime: new Date().getHours()+':00',
+    overTime: new Date().getHours()+1+':00',
+    // repeatType: Plan.REPEATTYPES[0],
+    // palnType: Plan.PLANTYPES[0].prop,
+    // remindType: Plan.REMINDTYPES[0].prop,
+    remark:'',
 
+    repeatType_selectItem: Plan.REPEATTYPES[0],
+    repeatType_itemList: Plan.REPEATTYPES,
+
+    palnType_selectItem: Plan.PLANTYPES[0],
+    palnType_itemList: Plan.PLANTYPES,
+
+    remindType_selectItem: Plan.REMINDTYPES[0],
+    remindType_itemList: Plan.REMINDTYPES,
+  },
 
   jianrongiPhone(){
     wx.getSystemInfo({
       success: res => {
-        console.log(res.system)
+        // console.log(res.system)
         if (res.system.startsWith("iOS")) {
           // console.log('苹果手机666')
           this.setData({
@@ -41,35 +53,34 @@ Page({
     }) 
   },
 
-  initPlan(){
+  addPlan(){
     let plan = new Plan()
-    plan.planId = ""
-    plan.content = "sss"
-    plan.isAllDay = false
+    plan.planId = new Date().getTime()
+    plan.content = this.data.content
+    plan.isAllDay = this.data.isAllDay
     plan.isCompleted = false
     plan.isCanEdit = true
-    plan.beginTime = "2018/01/25"
-    plan.overTime = "2018/01/25"
-    plan.repeatType = Plan.REPEATTYPES[0].prop
-    plan.palnType = Plan.PLANTYPES[0].prop
-    plan.remindType = Plan.REMINDTYPES[0].prop
-    plan.remark = ""
-    plan.creatTime = 'creatTime'
-    plan.updateTime = 'updateTime'
+    
+    plan.beginDate = this.data.beginDate
+    plan.overDate = this.data.overDate
+    plan.beginTime = this.data.beginTime
+    plan.overTime = this.data.overTime
+    plan.repeatType = this.data.repeatType_selectItem
+    plan.palnType = this.data.palnType_selectItem
+    plan.remindType = this.data.remindType_selectItem
+    plan.remark = this.data.remark
+    plan.creatTime = new Date().getTime()
+    plan.updateTime = new Date().getTime()
 
-    return plan
-    this.setData({
-      plan:plan
-    })
+    dbUtil.savePlan(plan)
   },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.jianrongiPhone()
-    this.initPlan()
-    console.log(this.data.plan)
   },
 
   /**
@@ -119,5 +130,80 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+
+
+  //对输入监控，非业务，放到没人看到的地方
+  bindPlanContent(e){
+    this.setData({
+      content: e.detail.value
+    })
+  },
+
+  bindAllDayCheckChange() {
+    this.setData({
+      isAllDay: !this.data.isAllDay
+    })
+  },
+
+  bindBeginDateChange(e){
+    console.log(e)
+
+    let date = new Date(e.detail.value)
+    console.log(date)
+    this.setData({
+      beginDate: e.detail.value,
+      beginDateText: (date.getMonth() + 1) + '月' + date.getDate() + "日",
+      beginWeek: date.getDay() + 1,
+    })
+  },
+
+  bindBeginTimeChange(e) {
+    
+    this.setData({
+      beginTime: e.detail.value
+    })
+  },
+
+  bindOverDateChange(e) {
+    let date = new Date(e.detail.value)
+    this.setData({
+      overDate: e.detail.value,
+      overDateText: (date.getMonth() + 1) + '月' + date.getDate() + "日",
+      overWeek: date.getDay() + 1,
+    })
+  },
+
+  bindOverTimeChange(e) {
+    this.setData({
+      overTime: e.detail.value
+    })
+  },
+
+  bindPlanRemark(e) {
+    this.setData({
+      remark: e.detail.value
+    })
+  },
+
+  bindtabRepeatTypeSelectionItem(e){
+    
+    this.setData({
+      repeatType_selectItem : e.detail.selectionItem
+    })
+    console.log(e.detail.selectionItem)
+  },
+
+  toSavePlan() {
+    this.addPlan()
+    this.toIndexPage()
+  },
+
+  toIndexPage: function () {
+    wx.navigateTo({
+      url: "/pages/index/index"
+    })
+  },
+
 })

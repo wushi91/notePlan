@@ -1,4 +1,8 @@
 /* pages/plan/addPlan/addPlan.wxss */
+
+.add-plan{
+  padding-bottom: 138rpx;
+}
 .content-wrapper{
   padding: 0 30rpx;
   height: 96rpx;
@@ -90,7 +94,7 @@ image.checkbox{
 }
 
 button.save-plan{
-  position: absolute;
+  position:fixed;
   border: none;
   border-radius: 0px;
   bottom: 0px;
@@ -101,6 +105,7 @@ button.save-plan{
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 88;
   
 }
 
@@ -108,7 +113,9 @@ button.save-plan::after{
   border: none;
 }
 
-
+.selection-item{
+  margin-top: 30rpx;
+}
 
 
 

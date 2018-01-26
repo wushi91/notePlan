@@ -1,20 +1,48 @@
 <!--components/selectionItem/selectionItem.wxml-->
-<view class='item-wrapper' >
+<view class='selection-item-wrapper' >
   <view class='item select-item' 
-        wx:if="{{hasSelected}}"
+        wx:if="{{!isSelecting}}"
         bindtap='showSelection'>
-    <text class='item-title {{selectItem?"select-color":""}}'>{{selectItem?selectItem.label:itemList[0].label}}</text>
-    <view class="item-point" wx:if="{{itemList[0].color?true:false}}" style='background-color:{{selectItem?selectItem.color:itemList[0].color}}'></view>
+    <!--有选择 即selectItem===true  -->
+    <block wx:if="{{selectItem}}">
+      <text class='item-title item-title-black'>{{selectItem.label}}</text>
+      <view class="item-point" 
+            wx:if="{{selectItem.color?true:false}}" 
+            style='background-color:{{selectItem.color}}'></view>
+    </block>
+    <!--没有选择但是有设置默认选项  -->
+    <block wx:elif="{{defaultItem}}">
+      <text class='item-title'>{{defaultItem.label}}</text>
+      <view class="item-point" 
+            wx:if="{{defaultItem.color?true:false}}" 
+            style='background-color:{{defaultItem.color}}'></view>
+    </block>
+    
+    <!--没有选择但是也没有有设置默认选项  -->
+    <block wx:else>
+      <text class='item-title'>{{itemList[0].label}}</text>
+      <view class="item-point" 
+            wx:if="{{itemList[0].color?true:false}}" 
+            style='background-color:{{itemList[0].color}}'></view>
+    </block>
   </view>
 
-  <view class='item' 
-        wx:if="{{!hasSelected}}"
+
+
+    <!-- 选中的那个为黑色 -->
+  <view class='selection-wrapper' wx:if="{{isSelecting}}">
+    <view class='item' 
         data-item = "{{item}}"
         bindtap='toSelect' 
         wx:for="{{itemList}}" 
         wx:key="{{index}}">
-    <text  class='item-title {{item.prop === selectItem.prop?"select-color":""}}'>{{item.label}}</text>
-    <view class="item-point" wx:if="{{item.color?true:false}}" style='background-color:{{item.color}}'></view>
+      <text class='item-title {{item.prop === selectItem.prop?"item-title-black":""}}'>{{item.label}}</text>
+      <view class="item-point" 
+            wx:if="{{item.color?true:false}}" 
+            style='background-color:{{item.color}}'></view>
+    </view>
   </view>
   
+  
 </view>
+

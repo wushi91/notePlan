@@ -2,12 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/plan/addPlan/addPlan",
-    
-    
-    
     "pages/logs/logs",
     "pages/plan/planDetail/planDetail"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
