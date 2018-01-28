@@ -1,19 +1,24 @@
 <!--index.wxml-->
 
- <swiper circular="true"
-        duration="500">
-    <swiper-item>
-      <calendar></calendar>
-    </swiper-item>
-    <swiper-item>
-      <calendar></calendar>
-    </swiper-item>
-    <swiper-item>
-      <calendar></calendar>
-    </swiper-item>
-</swiper> 
+<view class='swiper-wrapper'>
+ <swiper circular="true"duration="500">
+    <swiper-item><calendar></calendar></swiper-item>
+    <swiper-item><calendar></calendar></swiper-item>
+    <swiper-item><calendar></calendar></swiper-item>
+  </swiper> 
+</view>
 
-<planItem wx:for="{{planList}}" wx:key="index" plan="{{item}}"></planItem>
+
+<view class='plan-item-wrapper' >
+<planItem wx:for="{{planList}}" 
+          wx:key="index" 
+          plan="{{item}}" 
+          bindtapPlanItem='tapPlanItem'></planItem>
+</view>
+
+<view class='bottom-tab-wrapper'>
+  <bottomTab bindcatchItemTab='catchItemTab'></bottomTab>
+</view>
 
 <!-- 
 <swiper circular="true"
@@ -34,7 +39,7 @@
   </swiper-item>
 </swiper>  -->
 
-<bottomTab bindcatchItemTab='catchItemTab'></bottomTab>
+
 
 
 <!-- 

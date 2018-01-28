@@ -63,3 +63,7 @@ button.main-button{
   font-size:32rpx;
   border-radius: 44rpx;
 }
+
+button::after{
+  border: none;
+}

@@ -105,13 +105,7 @@ text{
   font-weight:normal;
 }
 
-bottomTab{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 
-}
 
 .container{
   background-color: gainsboro;
@@ -168,11 +162,27 @@ bottomTab{
   height: 6rpx;
 }
 
-swiper{
+.swiper-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 196rpx;
+  z-index: 99;
+}
+swiper,swiper-item{
+  background-color: red;
   height: 196rpx;
 }
-swiper-item{
-  background-color: greenyellow;
-  height: 196rpx;
+
+.plan-item-wrapper{
+  padding: 196rpx 0 98rpx 0;
+}
+
+.bottom-tab-wrapper{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 

@@ -46,11 +46,17 @@ Page({
     })
   },
 
+  toPlanDetailPage: function (plan) {
+    plan = JSON.stringify(plan)
+    wx.navigateTo({
+      url: "/pages/plan/planDetail/planDetail?plan=" + plan
+    })
+  },
+
   catchItemTab(e) {
     switch (e.detail.tabItem) {
       case -1://
         this.toAddPlanPage()
-        console.log('点击了添加日程')
         break;
       case 0://
         console.log('点击了日程列表')
@@ -59,6 +65,10 @@ Page({
         console.log('点击了我的')
         break;
     }
+  },
+
+  bindcatchPlanItemTab(){
+    console.log('bindcatchPlanItemTab')
   },
 
   bindchange(e){
@@ -195,6 +205,8 @@ Page({
       let newItem = JSON.parse(item)
       planList.push(newItem)
     }
+
+    console.log(planList)
     this.setData({
       planList: planList
     })
@@ -203,5 +215,9 @@ Page({
     this.dialog.showDialog();
   },
 
+  tapPlanItem(e){
+    console.log(e.detail.plan)
+    this.toPlanDetailPage(e.detail.plan)
+  }
   
 })

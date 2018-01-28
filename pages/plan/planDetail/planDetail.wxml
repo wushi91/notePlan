@@ -1,2 +1,25 @@
 <!--pages/plan/planDetail/planDetail.wxml-->
-<text>pages/plan/planDetail/planDetail.wxml</text>
+
+<view class='content-wrapper'>
+  <text class='plan-content font-medium'>{{plan.content}}</text>
+  <!--  -->
+  <text class='font-normal-black-32'>1月20日 周六</text>
+  <view class='time-wrapper'>
+    <text class='time font-lighter'>14:00</text>
+    <image></image>
+    <text class='time font-lighter'>18:00</text>
+  </view>
+  <text class='font-normal-black-32'>不重复</text>
+  <view class='plan-type'>
+    <text class='font-normal-black-32'>工作</text>
+    <view class='point'></view>
+  </view>
+  <text class='font-normal-black-32'>事件发生时提醒</text>
+</view>
+
+<view class='remark-wrapper' wx:if="{{plan.remark}}">
+  <text class='font-normal-black-32 remark'>{{plan.remark}}</text>
+</view>
+
+<button class='my-button main-button'>编 辑</button>
+<text class='delete-plan'>删除日程</text>

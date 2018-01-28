@@ -1,23 +1,23 @@
 <!--components/planItem/planItem.wxml-->
 
 <!--普通的日程  -->
-<view class='plan-item'>
-  <view class='checkbox-wrapper'>
-    <view class='checkbox'>
-    </view>
+<view class='plan-item {{plan.isCompleted?"is-complete":""}}'  
+      wx:if="{{!plan.isAllDay}}">
+  <view class='checkbox-wrapper' catchtap='tabCheckBox'>
+    <view class='checkbox' wx:if="{{!plan.isCompleted}}" ></view>
+    <image class='completed' wx:else src='/images/icon-done.png'></image>
   </view>
-
-  <view class='content-wrapper'>
+  <view class='content-wrapper' bindtap='tapPlanItem'>
     <span class='content'>{{plan.content}}</span>
     <view  class='time-wrapper'>
-      <span class='time'>14:00 - 18:30</span>
-      <image class='remind' src='/images/icon-alarm.png'></image>
+      <span class='time'>{{plan.beginTime}} - {{plan.overTime}}</span>
+      <image wx:if="{{plan.remindType.prop!=='no-remind'}}" class='remind' src='/images/icon-alarm.png'></image>
     </view>
   </view>
 </view>
 
 <!-- 已经完成的普通日程 -->
-<!-- <view class='plan-item is-complete'>
+ <!-- <view class='plan-item' wx:if="{{!plan.isAllDay&&plan.isCompleted}}">
   <view class='checkbox-wrapper'>
     <image class='completed' 
            src='/images/icon-done.png'></image>
@@ -27,22 +27,23 @@
     <span class='content'>行动管理笔记视觉稿设计</span>
     <view  class='time-wrapper'>
       <span class='time'>14:00 - 18:30</span>
-      <image class='remind' src='/images/icon-alarm.png'></image>
+      <image wx:if="{{plan.remindType.prop!=='no-remind'}}" class='remind' src='/images/icon-alarm.png'></image>
     </view>
   </view>
-</view>
+</view> -->
 
 
-<view class='plan-item is-all-day'>
-  <view class='checkbox-wrapper'>
-    <view class='checkbox'></view>
+<view class='plan-item is-all-day {{plan.isCompleted?"is-complete":""}}' wx:else >
+  <view class='checkbox-wrapper' catchtap='tabCheckBox'>
+    <view class='checkbox' wx:if="{{!plan.isCompleted}}"></view>
+    <image class='completed' wx:else src='/images/icon-done.png'></image>
   </view>
-  <view class='content-wrapper'>
-    <span class='content'>行动管理笔记视觉稿设计行动管理笔记视觉稿设计行动管理笔记视觉稿设计行动管理笔记视觉稿设计</span>
+  <view class='content-wrapper' bindtap='tapPlanItem'>
+    <span class='content'>{{plan.content}}</span>
   </view>
-  <image class='remind' src='/images/icon-alarm.png'></image>
+  <image wx:if="{{plan.remindType.prop!=='no-remind'}}" class='remind' src='/images/icon-alarm.png'></image>
 </view>
-
+<!-- 
 <view class='plan-item is-all-day is-complete'>
   <view class='checkbox-wrapper'>
     <image class='completed' 
@@ -52,4 +53,4 @@
     <span class='content'>行动管理笔记视觉稿设计</span>
   </view>
   <image class='remind' src='/images/icon-alarm.png'></image>
-</view> -->
+</view>  -->

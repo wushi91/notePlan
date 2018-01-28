@@ -60,8 +60,12 @@ class Plan {
     let isAllDay = this.isAllDay
     let isCompleted = this.isCompleted
     let isCanEdit = this.isCanEdit
+
+    let beginDate = this.beginDate
+    let overDate = this.overDate
     let beginTime = this.beginTime
     let overTime = this.overTime
+
     let repeatType = this.repeatType
     let palnType = this.palnType
     let remindType = this.remindType
@@ -69,7 +73,8 @@ class Plan {
     let creatTime = this.creatTime
     let updateTime = this.updateTime
     
-    let plan = { planId, content, isAllDay, isCompleted, isCanEdit, beginTime, overTime, repeatType, palnType, remindType, remark, creatTime, updateTime }
+    let plan = { planId, content, isAllDay, isCompleted, isCanEdit, beginDate,overDate,beginTime, overTime, repeatType, palnType, remindType, remark, creatTime, updateTime }
+    
     return JSON.stringify(plan)
   }
   

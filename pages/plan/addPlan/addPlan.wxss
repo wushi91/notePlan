@@ -109,9 +109,7 @@ button.save-plan{
   
 }
 
-button.save-plan::after{
-  border: none;
-}
+
 
 .selection-item{
   margin-top: 30rpx;

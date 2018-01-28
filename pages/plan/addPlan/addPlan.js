@@ -69,8 +69,8 @@ Page({
     plan.palnType = this.data.palnType_selectItem
     plan.remindType = this.data.remindType_selectItem
     plan.remark = this.data.remark
-    plan.creatTime = new Date().getTime()
-    plan.updateTime = new Date().getTime()
+    // plan.creatTime = new Date().getTime()
+    // plan.updateTime = new Date().getTime()
 
     dbUtil.savePlan(plan)
   },
@@ -201,8 +201,8 @@ Page({
   },
 
   toIndexPage: function () {
-    wx.navigateTo({
-      url: "/pages/index/index"
+    wx.navigateBack({
+      delta: 1
     })
   },
 

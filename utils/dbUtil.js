@@ -73,6 +73,13 @@ const savePlan = function(plan){
     // Do something with return value
     planList = []
   }
+
+  //如果没有创建时间，则添加时间
+  if (!plan.creatTime){
+    plan.creatTime = new Date().getTime()
+  }
+  // 修改时间
+  plan.updateTime = new Date().getTime()
   planList.push(plan.toString())
   wx.setStorage({
     key: key,
@@ -88,26 +95,65 @@ const getPlan = function(year,month,day,week){
   //查询每周的数据  0   _0    _0  _week
  
 
-  let currentDayPlan = getOnlyDay(year, month, day, week)
-  if (getEveryDay(year, month, day, week))
-  currentDayPlan = currentDayPlan.concat(getEveryDay(year, month, day, week))
-  if (getEveryMonth(year, month, day, week))
-  currentDayPlan = currentDayPlan.concat(getEveryMonth(year, month, day, week))
-  if (getEveryYear(year, month, day, week))
-  currentDayPlan = currentDayPlan.concat(getEveryYear(year, month, day, week))
-  if (getEveryWeek(year, month, day, week))
-  currentDayPlan = currentDayPlan.concat(getEveryWeek(year, month, day, week))
+  let currentDayPlan = []
+  let EveryDay = getEveryDay(year, month, day, week)
+  let OnlyDay = getOnlyDay(year, month, day, week)
+  let EveryMonth = getEveryMonth(year, month, day, week)
+  let EveryYear = getEveryYear(year, month, day, week)
+  let EveryWeek = getEveryWeek(year, month, day, week)
+  if (EveryDay)currentDayPlan = currentDayPlan.concat(EveryDay)
+  if (OnlyDay)currentDayPlan = currentDayPlan.concat(OnlyDay)
+  if (EveryMonth) currentDayPlan = currentDayPlan.concat(EveryMonth)
+  if (EveryYear) currentDayPlan = currentDayPlan.concat(EveryYear)
+  if (EveryWeek) currentDayPlan = currentDayPlan.concat(EveryWeek)
 
   // 最好做一次排序
   return currentDayPlan
 }
 
-const updataPlan = function(){
-  //关键在于？将旧的删除，将新的修改插入，不过新的那条数据创建时间是不变的
+const updataPlan = function(o_plan,n_plan){
+  /* 因为有可能修改了项目的起始时间，重复模式，所以key值会改变，统一删除旧的数据，然后插入新的数据，新的那条数据创建时间是不变的
+  */
+  // 删掉旧的日程
+  deletePlan(o_plan)
+  // 
+  savePlan(n_plan)
 }
 
-const deletePlan = function(){
+const deletePlan = function (plan){
   //根据年月日还有数据的id去删除，获取到一个数据，需要判断他的key是什么，然后在进去key里面删除对应的id
+
+
+  // console.log("--------------------------")
+  // console.log(plan.beginDate)
+
+  // console.log("--------------------------")
+  // console.log(plan)
+  let key = generateKey(plan)
+  let planId = plan.planId
+  let planList = wx.getStorageSync(key)
+
+  console.log(key)
+  let delIndex =-1
+  for (let i = 0; i < planList.length;i++){
+    let item = planList[i]
+    let newItem = JSON.parse(item)
+    if (newItem.planId === planId){
+      delIndex = i
+      break;
+    }
+  }
+  if (delIndex>=0){
+    planList.splice(delIndex, 1)
+
+    wx.setStorage({
+      key: key,
+      data: planList
+    })
+
+  }
+  
+  
 }
 
 
