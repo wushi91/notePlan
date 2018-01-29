@@ -22,4 +22,4 @@
 </view>
 
 <button class='my-button main-button'>编 辑</button>
-<text class='delete-plan'>删除日程</text>
+<text class='delete-plan' bindtap='showDeleteThePlan'>删除日程</text>

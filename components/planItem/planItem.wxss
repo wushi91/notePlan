@@ -33,7 +33,6 @@ image.completed{
   padding: 24rpx 50rpx 24rpx 36rpx;
   display: flex;
   border: 2px solid white;
-  margin: 36rpx;
   
 }
 
@@ -93,4 +92,13 @@ image.remind{
 
 
 /* 已经完成的全天的日程 */
+
+
+.plan-item-shadow{
+
+  margin-top: -1px;
+  border-radius: 8rpx;
+  height: 1px;
+  box-shadow: 0 6rpx 18rpx rgba(50, 50, 51, 0.4);
+}
 

@@ -4,51 +4,20 @@
  <calendar bindtabSelectDay="tabSelectDay"></calendar>
 </view>
 
-
-<view class='plan-item-wrapper' >
-<planItem wx:for="{{planList}}" 
-          wx:key="index" 
+<view class='content-wrapper'>
+  <view class='plan-item-wrapper' wx:for="{{planList}}" wx:key="index" >
+    <planItem 
           plan="{{item}}" 
-          bindtapPlanItem='tapPlanItem'></planItem>
+          bindtapPlanItem='tapPlanItem'>
+    </planItem>
+    
+  </view>
+
 </view>
+
+
 
 <view class='bottom-tab-wrapper'>
   <bottomTab bindcatchItemTab='catchItemTab'></bottomTab>
 </view>
-
-<!-- 
-<swiper circular="true"
-        duration="500"
-        current="1"
-        bindchange="bindchange"
-        bindanimationfinish="bindanimationfinish">
-  <swiper-item item-id="{{page1.day}}">
-        <text>{{page1.day}}</text>
-  </swiper-item>
-
-  <swiper-item item-id="{{page2.day}}">
-        <text>{{page2.day}}</text>
-  </swiper-item>
-
-  <swiper-item item-id="{{page3.day}}">
-        <text>{{page3.day}}</text>
-  </swiper-item>
-</swiper>  -->
-
-
-
-
-<!-- 
-  <view class='bottom-tab'>
-    <view class='item'>
-      <image class='item-image' src="/images/icon-tabbar-me-default.png"></image>
-      <text class='item-text'>日程</text>
-    </view>
-    <view class='center'></view>
-    <image class='center-image' src="/images/icon-tabbar-add-normal.png"></image>
-    <view class='item'>
-      <image class='item-image' src="/images/icon-tabbar-schedule-default.png"></image>
-      <text class='item-text'>我的</text>
-    </view>
-  </view> -->
 
