@@ -1,5 +1,10 @@
 /* components/calendar/calendar.wxss */
 
+swiper,swiper-item{
+  height: 196rpx;
+  background-color: linear-gradient(#45BFF7, #30B0F0);
+}
+
 .week{
   padding:24rpx 0 20rpx 0;
   display: flex;
@@ -35,9 +40,10 @@
 }
 
 
-.today text{
+.select-day text{
   color:#FFFFFF;
 }
-.today .point{
+.select-day .point{
   background-color: #FFFFFF;
 }
+

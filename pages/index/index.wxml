@@ -1,11 +1,7 @@
 <!--index.wxml-->
 
-<view class='swiper-wrapper'>
- <swiper circular="true"duration="500">
-    <swiper-item><calendar></calendar></swiper-item>
-    <swiper-item><calendar></calendar></swiper-item>
-    <swiper-item><calendar></calendar></swiper-item>
-  </swiper> 
+<view class='calendar-wrapper'>
+ <calendar bindtabSelectDay="tabSelectDay"></calendar>
 </view>
 
 

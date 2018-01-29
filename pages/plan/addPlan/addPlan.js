@@ -1,6 +1,8 @@
   // pages/plan/addPlan/addPlan.js
 const Plan = require('../../../bean/Plan.js')
 const dbUtil = require('../../../utils/dbUtil.js')
+const util = require('../../../utils/util.js')
+
 Page({
 
   /**
@@ -19,8 +21,8 @@ Page({
     overDateText: (new Date().getMonth() + 1) + '月' + new Date().getDate() + "日",
     beginDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
     overDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
-    beginWeek: new Date().getDay() + 1,
-    overWeek: new Date().getDay() + 1,
+    beginWeek: util.getChinaWeekNum(new Date()),
+    overWeek: util.getChinaWeekNum(new Date()),
     beginTime: new Date().getHours()+':00',
     overTime: new Date().getHours()+1+':00',
     // repeatType: Plan.REPEATTYPES[0],
