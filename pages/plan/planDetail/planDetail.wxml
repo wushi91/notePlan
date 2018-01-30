@@ -6,7 +6,11 @@
   <text class='font-normal-black-32'>1月20日 周六</text>
   <view class='time-wrapper'>
     <text class='time font-lighter'>14:00</text>
-    <image></image>
+    <view class='image-wrapper'>
+      <image src="/images/icon-arrow-big.png"></image>
+    </view>
+    
+    
     <text class='time font-lighter'>18:00</text>
   </view>
   <text class='font-normal-black-32'>不重复</text>

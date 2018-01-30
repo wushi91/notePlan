@@ -63,10 +63,13 @@ switch (repeatType.prop){
 
 const savePlan = function(plan){
   // 需要判断根据内容判断数据的key是什么
-  console.log(plan)
+  // console.log(plan)
   let key = generateKey(plan)
-  console.log("--------------------------")
+
+  console.log("------------------------------------------")
+  console.log("savePlan")
   console.log(key)
+  console.log("------------------------------------------")
 
   let planList = wx.getStorageSync(key)
   if (!planList) {
@@ -81,7 +84,7 @@ const savePlan = function(plan){
   // 修改时间
   plan.updateTime = new Date().getTime()
   planList.push(plan.toString())
-  console.log('----保存----')
+
   wx.setStorage({
     key: key,
     data: planList
@@ -134,7 +137,7 @@ const deletePlan = function (plan){
   let planId = plan.planId
   let planList = wx.getStorageSync(key)
 
-  console.log(key)
+
   let delIndex =-1
   for (let i = 0; i < planList.length;i++){
     let item = planList[i]
@@ -146,15 +149,11 @@ const deletePlan = function (plan){
   }
   if (delIndex>=0){
     planList.splice(delIndex, 1)
-    console.log("删除"+key)
-    console.log(planList)
     wx.setStorageSync(key, planList)
-
   }
-
-  console.log("删除结束" + key)
-  
-  
+  console.log("--------------------------")
+  console.log("删除成功")
+  console.log("--------------------------")
 }
 
 

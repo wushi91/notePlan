@@ -8,9 +8,9 @@ Component({
    */
   properties: {
 
-    plan: { // 属性名
-      type: Object, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
-      value: '' // 属性初始值（可选），如果未指定则会根据类型选择一个
+    planList: { // 属性名
+      type: Array, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
+      value: [] // 属性初始值（可选），如果未指定则会根据类型选择一个
     },
   },
 
@@ -43,18 +43,31 @@ Component({
       plan.remark = planStr.remark
       return plan
     },
-    tabCheckBox(){
-      let plan = this.data.plan
-      plan.isCompleted = !plan.isCompleted
+    tabCheckBox(e){
+      let plan = e.currentTarget.dataset.plan
+      
+
+      let planList = this.data.planList
+      for (let i = 0; i < planList.length;i++){
+        let item = planList[i]
+        if (planList[i].planId === plan.planId){
+          planList[i].isCompleted = !planList[i].isCompleted
+          break;
+        }
+      }
+
       this.setData({
-        plan: plan
+        planList: planList
       })
- 
+
+      plan.isCompleted = !plan.isCompleted
       dbUtil.updataPlan(this.toPlanClass(plan), this.toPlanClass(plan))
     },
-    tapPlanItem(){
-      console.log('tapPlanItem')
-      this.triggerEvent("tapPlanItem", { plan: this.data.plan})
+
+
+    tapPlanItem(e){
+      let plan = e.currentTarget.dataset.plan
+      this.triggerEvent("tapPlanItem", { plan: plan})
     }
 
   }

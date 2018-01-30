@@ -1,0 +1,49 @@
+<!--components/selectionTimeItem/selectionTimeItem.wxml-->
+<view class='time-item begin-time-wrapper'>
+    <text class='title font-black' wx:if="{{!isAllDay}}">开始</text>
+    <picker mode="date"
+            class="date-picker"
+            value="{{defaultStartTime.year}}-{{defaultStartTime.month}}-{{defaultStartTime.day}}" 
+            start="1990-01-01" 
+            end="" 
+            bindchange="bindBeginDateChange">
+      <text class='font-black' 
+            wx:if="{{selectStartTime}}">{{selectStartTime.month}}月{{selectStartTime.day}}日 {{selectStartTime.china_weekNum}}</text>
+      <text class='font-gray' wx:else>{{defaultStartTime.month}}月{{defaultStartTime.day}}日 {{defaultStartTime.china_weekNum}}</text>
+    </picker>
+
+    <picker mode="time" 
+            class="time-picker"
+            value="{{defaultStartTime.hour}}:{{defaultStartTime.minute}}" 
+            start="00:00" 
+            end="23:59" 
+            bindchange="bindBeginTimeChange">
+      <text class='font-black' wx:if="{{selectStartTime}}">{{selectStartTime.hour}}:{{selectStartTime.minute}}</text>
+      <text class='font-gray' wx:else>{{defaultStartTime.hour}}:{{defaultStartTime.minute}}</text>
+    </picker>
+</view>
+
+<view class='time-item over-time-wrapper' wx:if="{{!isAllDay}}">
+    <text class='title font-black'>结束</text>
+    <picker mode="date"
+            class="date-picker"
+            value="{{defaultOverTime.year}}-{{defaultOverTime.month}}-{{defaultOverTime.day}}" 
+            start="{{defaultStartTime.year}}-{{defaultStartTime.month}}-{{defaultStartTime.day}}" 
+            end="" 
+            bindchange="bindOverDateChange">
+      <text class='font-black' 
+            wx:if="{{selectOverTime}}">{{selectOverTime.month}}月{{selectOverTime.day}}日 {{selectOverTime.china_weekNum}}</text>
+      <text class='font-gray' wx:else>{{defaultOverTime.month}}月{{defaultOverTime.day}}日 {{defaultOverTime.china_weekNum}}</text>
+    </picker>
+
+    <picker mode="time" 
+            class="time-picker"
+            value="{{defaultOverTime.hour}}:{{defaultOverTime.minute}}" 
+            start="{{defaultStartTime.hour}}:{{defaultStartTime.minute}}" 
+            end="23:59" 
+            bindchange="bindOverTimeChange">
+      <text class='font-black' wx:if="{{selectOverTime}}">{{selectOverTime.hour}}:{{selectOverTime.minute}}</text>
+      <text class='font-gray' wx:else>{{defaultOverTime.hour}}:{{defaultOverTime.minute}}</text>
+    </picker>
+</view>
+

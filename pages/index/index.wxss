@@ -15,13 +15,7 @@
   margin-top:36rpx;
 }
 
-.plan-item-wrapper{
-  margin: 0 36rpx;
-}
 
-.plan-item-wrapper + .plan-item-wrapper{
-  margin-top:24rpx;
-}
 
 
 

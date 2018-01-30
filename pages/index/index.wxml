@@ -2,17 +2,14 @@
 
 <view class='calendar-wrapper'>
  <calendar bindtabSelectDay="tabSelectDay"></calendar>
-</view>
+</view> 
+
 
 <view class='content-wrapper'>
-  <view class='plan-item-wrapper' wx:for="{{planList}}" wx:key="index" >
     <planItem 
-          plan="{{item}}" 
+          planList="{{planList}}" 
           bindtapPlanItem='tapPlanItem'>
     </planItem>
-    
-  </view>
-
 </view>
 
 

@@ -1,0 +1,27 @@
+/* components/selectionTimeItem/selectionTimeItem.wxss */
+
+/*begin-time-wrapper  */
+.time-item{
+  height: 97rpx;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 0 30rpx;
+}
+
+.title{
+  flex: 1;
+}
+.time-picker{
+  margin-left: 96rpx;
+}
+
+text.font-black{
+  font-size:32rpx;
+  color:rgba(51,51,51,1); 
+}
+
+text.font-gray{
+  font-size:32rpx;
+  color:rgba(166,166,166,1);
+}

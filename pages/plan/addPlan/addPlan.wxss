@@ -37,26 +37,6 @@ image.checkbox{
 
 
 /*time-wrapper */
-.time-wrapper{
-  background-color: white;
-  padding: 4rpx 30rpx 25rpx 30rpx;
-}
-
-/*begin-time-wrapper  */
-.time-item{
-  height: 45rpx;
-  display: flex;
-  align-items: center;
-}
-.time-item + .time-item {
-  margin-top: 52rpx;
-}
-.time-item :first-child{
-  flex: 1;
-}
-.time-item :nth-child(3){
-  margin-left: 96rpx;
-}
 
 
 /* item-wrapper  */

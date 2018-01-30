@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "新建日程",
   "usingComponents": {
-    "selectionItem": "/components/selectionItem/selectionItem"
+    "selectionItem": "/components/selectionItem/selectionItem",
+    "selectionTimeItem": "/components/selectionTimeItem/selectionTimeItem"
   }
 }

@@ -24,6 +24,16 @@ image.completed{
   margin-right: 24rpx;
 }
 
+
+.plan-item-wrapper{
+  margin: 0 36rpx;
+}
+
+.plan-item-wrapper + .plan-item-wrapper{
+  margin-top:24rpx;
+}
+
+
 /*普通的日程  */
 .plan-item{
   box-sizing: border-box;
@@ -95,10 +105,19 @@ image.remind{
 
 
 .plan-item-shadow{
-
   margin-top: -1px;
   border-radius: 8rpx;
   height: 1px;
   box-shadow: 0 6rpx 18rpx rgba(50, 50, 51, 0.4);
+  transition: box-shadow 0.1s;
 }
+
+.plan-item-shadow-completed{
+  margin-top: -1px;
+  border-radius: 8rpx;
+  height: 1px;
+  box-shadow: 0 0rpx 0rpx rgba(50, 50, 51, 0);
+  transition: box-shadow 0.05s;
+}
+
 

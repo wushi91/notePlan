@@ -2,6 +2,7 @@
 const Plan = require('../../../bean/Plan.js')
 const dbUtil = require('../../../utils/dbUtil.js')
 const util = require('../../../utils/util.js')
+const selectionTimeUtil = require('../../../components/selectionTimeItem/selectionTimeUtil.js')
 
 Page({
 
@@ -17,17 +18,10 @@ Page({
     
     content:'',
     isAllDay:false,
-    beginDateText: (new Date().getMonth() + 1) + '月' + new Date().getDate()+"日",
-    overDateText: (new Date().getMonth() + 1) + '月' + new Date().getDate() + "日",
-    beginDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
-    overDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
-    beginWeek: util.getChinaWeekNum(new Date()),
-    overWeek: util.getChinaWeekNum(new Date()),
-    beginTime: new Date().getHours()+':00',
-    overTime: new Date().getHours()+1+':00',
-    // repeatType: Plan.REPEATTYPES[0],
-    // palnType: Plan.PLANTYPES[0].prop,
-    // remindType: Plan.REMINDTYPES[0].prop,
+
+    selectStartTime: selectionTimeUtil.getDefaultStartTime(),
+    selectOverTime: selectionTimeUtil.getDefaultOverTime(),
+
     remark:'',
 
     repeatType_selectItem: Plan.REPEATTYPES[0],
@@ -71,8 +65,7 @@ Page({
     plan.palnType = this.data.palnType_selectItem
     plan.remindType = this.data.remindType_selectItem
     plan.remark = this.data.remark
-    // plan.creatTime = new Date().getTime()
-    // plan.updateTime = new Date().getTime()
+
 
     dbUtil.savePlan(plan)
   },
@@ -149,40 +142,6 @@ Page({
     })
   },
 
-  bindBeginDateChange(e){
-    console.log(e)
-
-    let date = new Date(e.detail.value)
-    console.log(date)
-    this.setData({
-      beginDate: e.detail.value,
-      beginDateText: (date.getMonth() + 1) + '月' + date.getDate() + "日",
-      beginWeek: date.getDay() + 1,
-    })
-  },
-
-  bindBeginTimeChange(e) {
-    
-    this.setData({
-      beginTime: e.detail.value
-    })
-  },
-
-  bindOverDateChange(e) {
-    let date = new Date(e.detail.value)
-    this.setData({
-      overDate: e.detail.value,
-      overDateText: (date.getMonth() + 1) + '月' + date.getDate() + "日",
-      overWeek: date.getDay() + 1,
-    })
-  },
-
-  bindOverTimeChange(e) {
-    this.setData({
-      overTime: e.detail.value
-    })
-  },
-
   bindPlanRemark(e) {
     this.setData({
       remark: e.detail.value
@@ -194,9 +153,24 @@ Page({
     this.setData({
       repeatType_selectItem : e.detail.selectionItem
     })
-    console.log(e.detail.selectionItem)
   },
 
+  bindtabPlanTypeSelectionItem(e) {
+    this.setData({
+      palnType_selectItem: e.detail.selectionItem
+    })
+  },
+
+  bindtabRemindTypeSelectionItem(e) {
+
+    this.setData({
+      remindType_selectItem: e.detail.selectionItem
+    })
+  },
+
+  bindtabSelectionTimeItem(e){
+    console.log(e.detail)
+  },
   toSavePlan() {
     this.addPlan()
     this.toIndexPage()
