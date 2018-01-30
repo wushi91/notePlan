@@ -86,12 +86,15 @@ Component({
         selectOverTime: selectionTimeUtil.getItemTime(date),
         
       })
-
-      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      if (this.data.selectStartTime){
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      }else{
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      }
+      
     },
 
     bindOverTimeChange(e) {
-      console.log(e)
       let date = new Date(this.data.defaultOverTime.date)
       let hour = e.detail.value.split(":")[0]
       let minute = e.detail.value.split(":")[1]
@@ -99,11 +102,14 @@ Component({
       date.setMinutes(minute)
       this.setData({
         defaultOverTime: selectionTimeUtil.getItemTime(date),
-
         selectOverTime: selectionTimeUtil.getItemTime(date),
       })
 
-      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      if (this.data.selectStartTime) {
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      } else {
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+      }
     },
   }
 })

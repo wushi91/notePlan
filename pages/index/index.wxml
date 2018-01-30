@@ -1,18 +1,32 @@
 <!--index.wxml-->
 
+<view class='mypage page-plan' wx:if="{{showPlanPage}}">
 <view class='calendar-wrapper'>
  <calendar bindtabSelectDay="tabSelectDay"></calendar>
 </view> 
-
-
 <view class='content-wrapper'>
     <planItem 
           planList="{{planList}}" 
           bindtapPlanItem='tapPlanItem'>
     </planItem>
 </view>
+</view>
 
+<view class='mypage page-me' wx:else>
+  <view class='user-info-wrapper'>
+    <image class='header-image' 
+           src="{{headerimagesrc}}" 
+           bindtap="toMyUserLogin"></image>
+    <text class='username' bindtap="toMyUserLogin">{{ username }}</text>
+  </view>
 
+  <view class='item-wrapper'>
+    <view class='item'>
+      <text class='font-normal-black-32'>意见反馈</text>
+      <image src='/images/icon-arrow-right.png'></image>
+    </view>
+  </view>
+</view>
 
 <view class='bottom-tab-wrapper'>
   <bottomTab bindcatchItemTab='catchItemTab'></bottomTab>

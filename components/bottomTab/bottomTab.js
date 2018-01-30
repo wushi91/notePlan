@@ -37,7 +37,7 @@ Component({
       { prop: 'schedule', label: '日程', iconnormal: '/images/icon-tabbar-schedule-default.png', iconselected: '/images/icon-tabbar-schedule-selected.png' },
       { prop: 'myinfo', label: '我的', iconnormal: '/images/icon-tabbar-me-default.png', iconselected: '/images/icon-tabbar-me-selected.png' }
       ],
-    currentStatus: 'myinfo',
+    currentStatus: 'schedule',
     centerImage:'/images/icon-tabbar-add-normal.png',
     normalCenterImage:'/images/icon-tabbar-add-normal.png',
     pressCenterImage: '/images/icon-tabbar-add-pressed.png',

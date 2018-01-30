@@ -1,4 +1,8 @@
 
+.mypage{
+  padding-bottom: 98rpx;
+}
+
 .calendar-wrapper{
   position: fixed;
   top: 0;
@@ -11,12 +15,35 @@
 }
 
 .content-wrapper{
-  padding: 196rpx 0 98rpx 0;
+  padding: 196rpx 0 0 0;
   margin-top:36rpx;
 }
 
+.page-me{
 
+}
 
+.user-info-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 240rpx;
+  background: linear-gradient(#45BFF7, #30B0F0);
+}
+
+.user-info-wrapper .header-image{ 
+  border-radius: 50%;
+  width: 124rpx;
+  height: 124rpx;
+}
+
+.user-info-wrapper .username{
+  margin-top: 16rpx;
+  font-size:30rpx;
+  color:rgba(255,255,255,1);
+  line-height:42rpx;
+}
 
 
 .bottom-tab-wrapper{
@@ -24,4 +51,26 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.item-wrapper{
+  margin-top: 30rpx;
+}
+
+.item-wrapper .item{
+  height: 96rpx;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24rpx 0 30rpx;
+}
+
+.item text{
+  flex: 1;
+}
+
+.item image{
+  width: 44rpx;
+  height: 44rpx;
 }

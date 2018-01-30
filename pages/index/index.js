@@ -7,8 +7,11 @@ const app = getApp()
 Page({
   data: {
     
+    showPlanPage:true,
     planList:[],
    
+    username: '微信授权登录',
+    headerimagesrc: '/images/icon-head-default.png',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -37,9 +40,21 @@ Page({
         this.toAddPlanPage()
         break;
       case 0://
+        this.setData({
+          showPlanPage:true
+        })
+        wx.setNavigationBarTitle({
+          title: "行动管理笔记"
+        })
         console.log('点击了日程列表')
         break;
       case 1://
+        this.setData({
+          showPlanPage: false
+        })
+        wx.setNavigationBarTitle({
+          title: "我的"
+        })
         console.log('点击了我的')
         break;
     }

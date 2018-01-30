@@ -19,9 +19,11 @@ Page({
     content:'',
     isAllDay:false,
 
-    selectStartTime: selectionTimeUtil.getDefaultStartTime(),
-    selectOverTime: selectionTimeUtil.getDefaultOverTime(),
+    defaultStartTime: selectionTimeUtil.getDefaultStartTime(),
+    defaultOverTime: selectionTimeUtil.getDefaultOverTime(),
 
+    planStartTime: selectionTimeUtil.getDefaultStartDate().getTime(),
+    planOverTime: selectionTimeUtil.getDefaultOverDate().getTime(),
     remark:'',
 
     repeatType_selectItem: Plan.REPEATTYPES[0],
@@ -57,10 +59,11 @@ Page({
     plan.isCompleted = false
     plan.isCanEdit = true
     
-    plan.beginDate = this.data.beginDate
-    plan.overDate = this.data.overDate
-    plan.beginTime = this.data.beginTime
-    plan.overTime = this.data.overTime
+
+    
+    plan.beginDate = this.data.planStartTime
+    plan.overDate = this.data.planOverTime
+    
     plan.repeatType = this.data.repeatType_selectItem
     plan.palnType = this.data.palnType_selectItem
     plan.remindType = this.data.remindType_selectItem
@@ -169,7 +172,13 @@ Page({
   },
 
   bindtabSelectionTimeItem(e){
+
+    this.setData({
+      planStartTime: new Date(e.detail.beginTime).getTime(),
+      planOverTime: new Date(e.detail.overTime).getTime()
+    })
     console.log(e.detail)
+    console.log("--------")
   },
   toSavePlan() {
     this.addPlan()

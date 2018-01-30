@@ -34,10 +34,23 @@ const getChinaWeekNum = (date, before) => {
 }
 
 
+const getDefaultStartDate = function () {
+  let date = new Date()
+  date.setMinutes(0)
+  return date
+}
+
 const getDefaultStartTime = function(){
   let date = new Date()
   date.setMinutes(0)
   return getItemTime(date)
+}
+
+const getDefaultOverDate = function(){
+  let date = new Date()
+  date.setHours(date.getHours() + 1)
+  date.setMinutes(0)
+  return date
 }
 
 const getDefaultOverTime = function () {
@@ -76,5 +89,7 @@ const formatNumber = n => {
 module.exports = {
   getItemTime,
   getDefaultStartTime,
-  getDefaultOverTime
+  getDefaultOverTime,
+  getDefaultStartDate,
+  getDefaultOverDate
 }

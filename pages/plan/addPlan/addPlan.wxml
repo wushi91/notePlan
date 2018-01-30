@@ -22,8 +22,8 @@
   <!--计划时间  -->
   <view class='time-wrapper'>
     <selectionTimeItem isAllDay="{{isAllDay}}" 
-                       defaultStartTime="{{selectStartTime}}" 
-                       defaultOverTime="{{selectOverTime}}"
+                       defaultStartTime="{{defaultStartTime}}" 
+                       defaultOverTime="{{defaultOverTime}}"
                        bindtabSelectionTimeItem="bindtabSelectionTimeItem"></selectionTimeItem>
   </view>
 
