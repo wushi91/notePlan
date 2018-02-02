@@ -7,7 +7,7 @@
 <view class='plan-item {{item.isCompleted?"is-complete":""}}'  
       wx:if="{{!item.isAllDay}}" >
   <view class='checkbox-wrapper' catchtap='tabCheckBox' data-plan='{{item}}'>
-    <view class='checkbox' wx:if="{{!item.isCompleted}}" ></view>
+    <view class='checkbox' wx:if="{{!item.isCompleted}}" style='border-color:{{item.palnType.color}}'></view>
     <image class='completed' wx:else src='/images/icon-done.png'></image>
   </view>
   <view class='content-wrapper' bindtap='tapPlanItem' data-plan='{{item}}'>
@@ -24,7 +24,7 @@
 <view class='plan-item is-all-day {{item.isCompleted?"is-complete":""}}' 
       wx:else >
   <view class='checkbox-wrapper' catchtap='tabCheckBox' data-plan='{{item}}'>
-    <view class='checkbox' wx:if="{{!item.isCompleted}}"></view>
+    <view class='checkbox' wx:if="{{!item.isCompleted}}" style='border-color:{{item.palnType.color}}'></view>
     <image class='completed' wx:else src='/images/icon-done.png'></image>
   </view>
   <view class='content-wrapper' bindtap='tapPlanItem' data-plan='{{item}}'>

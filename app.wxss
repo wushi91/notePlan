@@ -54,7 +54,7 @@ button.my-button:active{
 }
 
 button.my-button[disabled='']{
-  background:rgba(69,191,247,0.4);
+  background:rgba(174,225,248,1);
   color:rgba(255,255,255,0.6);
 }
 

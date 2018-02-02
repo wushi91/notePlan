@@ -8,7 +8,7 @@
          placeholder-style="color:rgba(166,166,166,1);" 
          maxlength='20' 
          placeholder="请输入你的日程或计划"
-         value='{{content}}' />
+         value='{{plan.content}}' />
   </view>
 
 
@@ -16,25 +16,25 @@
     <text class='font-normal-black-32'>全天事件</text>
     <image class='checkbox' 
            bindtap="bindAllDayCheckChange" 
-           src='{{isAllDay?"/images/icon-alldayevent-on.png":"/images/icon-alldayevent-off.png"}}'></image>
+           src='{{plan.isAllDay?"/images/icon-alldayevent-on.png":"/images/icon-alldayevent-off.png"}}'></image>
   </view>
 
   <!--计划时间  -->
   <view class='time-wrapper'>
-    <selectionTimeItem isAllDay="{{isAllDay}}" 
-                       defaultStartTime="{{defaultStartTime}}" 
-                       defaultOverTime="{{defaultOverTime}}"
+    <selectionTimeItem isAllDay="{{plan.isAllDay}}" 
+                       defaultStartTime="{{plan.beginTime}}" 
+                       defaultOverTime="{{plan.overTime}}"
                        bindtabSelectionTimeItem="bindtabSelectionTimeItem"></selectionTimeItem>
   </view>
 
-  <selectionItem defaultItem="{{repeatType_selectItem}}" 
+  <selectionItem defaultItem="{{plan.repeatType}}" 
                  itemList="{{repeatType_itemList}}"
                  bindtabSelectionItem="bindtabRepeatTypeSelectionItem"></selectionItem>
 
   <!-- 计划类型：工作 -->
   <view class="selection-item">  
     <selectionItem 
-               defaultItem="{{palnType_selectItem}}" 
+               defaultItem="{{plan.palnType}}" 
                itemList="{{palnType_itemList}}"
                bindtabSelectionItem="bindtabPlanTypeSelectionItem"></selectionItem>
   </view>
@@ -43,7 +43,7 @@
   <!--计划：事件发生时提醒  -->
   <view class="selection-item">
     <selectionItem 
-               defaultItem="{{remindType_selectItem}}" 
+               defaultItem="{{plan.remindType}}" 
                itemList="{{remindType_itemList}}"
                bindtabSelectionItem="bindtabRemindTypeSelectionItem"></selectionItem>
   </view>
@@ -56,7 +56,7 @@
     <textarea class="font-normal-black-32"
               placeholder-style="color:rgba(166,166,166,1);" 
               maxlength='60' 
-              value='{{remark}}'
+              value='{{plan.remark}}'
               placeholder="备注（选填）"
               bindinput="bindPlanRemark" ></textarea>
     <text class='length-tip font-normal-gray-24'
@@ -64,7 +64,7 @@
   </view>
 
   <view>
-    <button class='my-button save-plan' disabled='{{!content}}' bindtap='toSavePlan'>保存</button>
+    <button class='my-button save-plan' disabled='{{!plan.content}}' bindtap='toSavePlan'>保存</button>
   </view>
 
 </view>

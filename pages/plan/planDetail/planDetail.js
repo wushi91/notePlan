@@ -1,4 +1,8 @@
 // pages/plan/planDetail/planDetail.js
+
+const util = require('../../../utils/util.js')
+const dbUtil = require('../../../utils/dbUtil.js')
+
 Page({
 
   /**
@@ -8,6 +12,19 @@ Page({
     plan:''
   },
 
+
+  toPlanEditPage: function () {
+
+     
+    let plan = this.data.plan
+    plan.content = encodeURIComponent(plan.content)
+    plan.remark = encodeURIComponent(plan.remark)
+    plan = JSON.stringify(plan)
+
+    wx.navigateTo({
+      url: "/pages/plan/addPlan/addPlan?plan=" + plan
+    })
+  },
 
 
   showDeleteThePlan: function () {
@@ -24,7 +41,19 @@ Page({
           console.log('用户点击确定')
         } else if (res.cancel) {
           //这里是确定
-          this.deleteTheRenter(this.data.userId, this.data.bookid)
+          dbUtil.deletePlan(this.data.plan)
+          
+          wx.showToast({
+            title:"删除成功",
+            icon:"success",
+            duration:500,
+            success:res=>{
+              setTimeout(()=>{
+                this.toIndexPage()
+              },500)
+              
+            }
+          })
         }
       }
     })
@@ -33,8 +62,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    // console.log(options.plan)
+
+
+    let plan = JSON.parse(options.plan)
+    plan.content = decodeURIComponent(plan.content)
+    plan.remark = decodeURIComponent(plan.remark)
+    plan.beginDateText = (new Date(plan.beginDate).getMonth() + 1) + "月" + new Date(plan.beginDate).getDate()+"日"
+    plan.weekText = util.getChinaWeekNum(new Date(plan.beginDate),"周")
+
     this.setData({
-      plan: JSON.parse(options.plan),
+      plan: plan,
     })
   },
 
@@ -85,5 +124,11 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  toIndexPage: function () {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
 })

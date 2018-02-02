@@ -2,7 +2,11 @@
 
 <view class='mypage page-plan' wx:if="{{showPlanPage}}">
 <view class='calendar-wrapper'>
- <calendar bindtabSelectDay="tabSelectDay"></calendar>
+ <calendar weekZero="{{week0}}"
+           weekOne="{{week1}}"
+           weekTwo="{{week2}}"
+           currentpage="{{currentpage}}"
+           bindtabSelectDay="tabSelectDay"></calendar>
 </view> 
 <view class='content-wrapper'>
     <planItem 

@@ -49,60 +49,59 @@ const getChinaWeekNum= (date,before)=>{
   
 }
 
-// 输入一天，获取这一天所处的周
-const getWeek = (date)=>{
-  let weekNum = date.getDay()// 0-6
-  let beforeDay = weekNum
-  let afterDay = 6 - beforeDay
+// // 输入一天，获取这一天所处的周
+// const getWeek = (date)=>{
+//   let weekNum = date.getDay()// 0-6
+//   let beforeDay = weekNum
+//   let afterDay = 6 - beforeDay
 
-  let week=[]
+//   let week=[]
   
-  for (let i = beforeDay;i>=0;i--){
-    let tempDate = new Date(date.getTime())
-    tempDate.setDate(tempDate.getDate()-i)
-    week.push(tempDate)
-  }
-  // week.push(date)
+//   for (let i = beforeDay;i>=0;i--){
+//     let tempDate = new Date(date.getTime())
+//     tempDate.setDate(tempDate.getDate()-i)
+//     week.push(tempDate)
+//   }
+//   // week.push(date)
 
-  for (let i = 1; i <=afterDay; i++) {
-    let tempDate = new Date(date.getTime())
-    tempDate.setDate(tempDate.getDate() +i)
-    week.push(tempDate)
-  }
+//   for (let i = 1; i <=afterDay; i++) {
+//     let tempDate = new Date(date.getTime())
+//     tempDate.setDate(tempDate.getDate() +i)
+//     week.push(tempDate)
+//   }
 
-  return week
-}
+//   return week
+// }
 
-const getWeekToCalendarComponent = (date) =>{
-  let week = getWeek(date)
-  let weekToCalendarComponent =[]
-  let today = new Date()
-  for(let i=0;i<week.length;i++){
-    let date = week[i]
-    let isToday = today.getFullYear() === date.getFullYear() 
-    && today.getMonth() === date.getMonth() 
-    && today.getDate()===date.getDate()
-    let newItme = { 
-      date: date,
-      year: date.getFullYear(), 
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-      china_month: '二', 
-      china_day: '廿二', 
-      china_weekNum: getChinaWeekNum(date), 
-      isToday: isToday
-      }
-    weekToCalendarComponent.push(newItme)
-  }
+// const getWeekToCalendarComponent = (date) =>{
+//   let week = getWeek(date)
+//   let weekToCalendarComponent =[]
+//   let today = new Date()
+//   for(let i=0;i<week.length;i++){
+//     let date = week[i]
+//     let isToday = today.getFullYear() === date.getFullYear() 
+//     && today.getMonth() === date.getMonth() 
+//     && today.getDate()===date.getDate()
+//     let newItme = { 
+//       date: date,
+//       year: date.getFullYear(), 
+//       month: date.getMonth() + 1,
+//       day: date.getDate(),
+//       china_month: '二', 
+//       china_day: '廿二', 
+//       china_weekNum: getChinaWeekNum(date), 
+//       isToday: isToday
+//       }
+//     weekToCalendarComponent.push(newItme)
+//   }
 
-  return weekToCalendarComponent
+//   return weekToCalendarComponent
   
-}
+// }
 
 
 module.exports = {
   formatTime: formatTime,
   getChinaWeekNum,
-  getWeek,
-  getWeekToCalendarComponent
+  formatNumber
 }

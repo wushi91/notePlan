@@ -3,27 +3,27 @@
 <view class='content-wrapper'>
   <text class='plan-content font-medium'>{{plan.content}}</text>
   <!--  -->
-  <text class='font-normal-black-32'>1月20日 周六</text>
+  <text class='font-normal-black-32'>{{plan.beginDateText}} {{plan.weekText}}</text>
   <view class='time-wrapper'>
-    <text class='time font-lighter'>14:00</text>
+    <text class='time font-lighter'>{{plan.beginTime}}</text>
     <view class='image-wrapper'>
       <image src="/images/icon-arrow-big.png"></image>
     </view>
     
     
-    <text class='time font-lighter'>18:00</text>
+    <text class='time font-lighter'>{{plan.overTime}}</text>
   </view>
-  <text class='font-normal-black-32'>不重复</text>
+  <text class='font-normal-black-32'>{{plan.repeatType.label}}</text>
   <view class='plan-type'>
-    <text class='font-normal-black-32'>工作</text>
-    <view class='point'></view>
+    <text class='font-normal-black-32'>{{plan.palnType.label}}</text>
+    <view class='point' style='background-color:{{plan.palnType.color}}'></view>
   </view>
-  <text class='font-normal-black-32'>事件发生时提醒</text>
+  <text class='font-normal-black-32'>{{plan.remindType.label}}</text>
 </view>
 
 <view class='remark-wrapper' wx:if="{{plan.remark}}">
   <text class='font-normal-black-32 remark'>{{plan.remark}}</text>
 </view>
 
-<button class='my-button main-button'>编 辑</button>
+<button class='my-button main-button' bindtap='toPlanEditPage'>编 辑</button>
 <text class='delete-plan' bindtap='showDeleteThePlan'>删除日程</text>

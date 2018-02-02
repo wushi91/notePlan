@@ -1,118 +1,127 @@
 const Plan = require('../bean/Plan.js')
+
+const planUtil = require('../utils/planUtil.js')
+
+
 /*
   内部方法
 */
 // 具体的天数的
-const getOnlyDay = function (year, month, day, week) {
-  return wx.getStorageSync(year + "_" + month + "_" + day + "_0")
+const getTodayPlanIds = function (year, month, day, week) {
+
+  let key = year + "_" + month + "_" + day + "_*"
+  let planIds = wx.getStorageSync(key)
+  return planIds
 }
-const getEveryDay = function (year, month, day, week) {
-  return wx.getStorageSync("0_0_0_0")
+const getDayPlanIds = function (year, month, day, week) {
+  let key = "*_*_*_*"
+  let planIds = wx.getStorageSync(key)
+
+  return planIds
 }
 // 每月的1号
-const getEveryMonth = function (year, month, day, week) {
-  return wx.getStorageSync("0_0_" + day + "_0")
+const getMonthPlanIds = function (year, month, day, week) {
+  let key = "*_*_" + day + "_*"
+  let planIds = wx.getStorageSync(key)
+
+  return planIds
 }
 // 每年的12月1号
-const getEveryYear = function (year, month, day, week) {
-  return wx.getStorageSync("0_" + month + "_" + day + "_0")
+const getYearPlanIds = function (year, month, day, week) {
+  let key = "*_" + month + "_" + day + "_*"
+  let planIds = wx.getStorageSync(key)
+
+  return planIds
 }
 // 每周一
-const getEveryWeek = function (year, month, day, week) {
-  return wx.getStorageSync("0_0_0_" + week)
-}
-
-
-const generateKey = function(paln){
-  let date = new Date(paln.beginDate)
-  let year = date.getFullYear()
-  let month = date.getMonth() + 1
-  let day = date.getDate()
-  let week = date.getDay()+1
+const getWeekPlan = function (year, month, day, week) {
+  let key = "*_*_*_" + week
+  let planIds = wx.getStorageSync(key)
   
-  let repeatType = paln.repeatType
-
-// { prop: "no-repeat", label: "不重复" },
-// { prop: "day-repeat", label: "每天重复" },
-// { prop: "week-repeat", label: "每周重复" },
-// { prop: "month-repeat", label: "每月重复" },
-// { prop: "year-repeat", label: "每年重复" }
-let key = ''
-switch (repeatType.prop){
-  case Plan.REPEATTYPES[0].prop://不重复
-    key = year + '_' + month + '_' + day + '_0'
-    break;
-  case Plan.REPEATTYPES[1].prop://每天重复
-    key = '0_0_0_0'
-    break;
-  case Plan.REPEATTYPES[2].prop:// 每周重复
-    key = '0_0_0_' + week
-    break;
-  case Plan.REPEATTYPES[3].prop://每月重复
-    key = "0_0_" + day + "_0"
-    break;
-  case Plan.REPEATTYPES[4].prop://每年重复
-    key = "0_" + month + "_" + day + "_0"
-    break;
+  return planIds
 }
-  return key
+
+const getLianxuPlanIds = function (year, month, day, week) {
+
+  let key = "*_*"
+  let planIds = []
+  let allLianxuPlanIds = JSON.parse(wx.getStorageSync(key))
+  let currentTime = new Date(year + "-" + month + "-" + day).getTime()
+  for (let i = 0; i < allLianxuPlanIds.length;i++){
+    let item = allLianxuPlanIds[0]
+    if (currentTime > item.beginTime && currentTime <item.overTime){
+      //这就是我想要的planId
+      planIds.push(item.planId)
+    }
+  }
+
+  return planIds
 }
 
 
+const addPlanIdToKey = function(key,planId){
+  let planIdList = wx.getStorageSync(key)
+  if (!planIdList) planIdList = []
+  planIdList.push(planId)
+  wx.setStorageSync(key,planIdList)
+}
 
+const addPlanToKeyPlanId = function (planId,plan) {
+  wx.setStorageSync(planId, plan)
 
+}
+
+/*
+ 核心代码：获取日程的时候key指向planId，planId指向plan。删除日程的时候，根据planId去删除。*/
 const savePlan = function(plan){
   // 需要判断根据内容判断数据的key是什么
-  // console.log(plan)
-  let key = generateKey(plan)
-
-  console.log("------------------------------------------")
-  console.log("savePlan")
-  console.log(key)
-  console.log("------------------------------------------")
-
-  let planList = wx.getStorageSync(key)
-  if (!planList) {
-    // Do something with return value
-    planList = []
-  }
-
-  //如果没有创建时间，则添加时间
-  if (!plan.creatTime){
-    plan.creatTime = new Date().getTime()
-  }
-  // 修改时间
-  plan.updateTime = new Date().getTime()
-  planList.push(plan.toString())
-
-  wx.setStorage({
-    key: key,
-    data: planList
-  })
+  let key = planUtil.generateKey(plan)
+  let planId = "id_" + new Date().getTime()
+  let sPlan = planUtil.createSavePlan(plan)
+  console.log("key值：" + key)
+  console.log("planId值：" + planId)
+  addPlanIdToKey(key, planId)
+  addPlanToKeyPlanId(planId, sPlan)
 }
 
-const getPlan = function(year,month,day,week){
-  //key为当天的数据 year_month_day_0
-  //查询每天的数据  0   _0    _0  _0
-  //查询每月的数据  0   _0    _day_0
-  //查询每年的数据  0   _month_day_0
-  //查询每周的数据  0   _0    _0  _week
- 
+const getPlanList = function (year, month, day, week) {
+  let planList = []
+  let planIds = getCurrentDayPlanIds(year, month, day, week)
+  for (let i = 0; i < planIds.length;i++){
+    planList.push(wx.getStorageSync(planIds[i])) 
+  }
 
-  let currentDayPlan = []
-  let EveryDay = getEveryDay(year, month, day, week)
-  let OnlyDay = getOnlyDay(year, month, day, week)
-  let EveryMonth = getEveryMonth(year, month, day, week)
-  let EveryYear = getEveryYear(year, month, day, week)
-  let EveryWeek = getEveryWeek(year, month, day, week)
-  if (EveryDay)currentDayPlan = currentDayPlan.concat(EveryDay)
-  if (OnlyDay)currentDayPlan = currentDayPlan.concat(OnlyDay)
-  if (EveryMonth) currentDayPlan = currentDayPlan.concat(EveryMonth)
-  if (EveryYear) currentDayPlan = currentDayPlan.concat(EveryYear)
-  if (EveryWeek) currentDayPlan = currentDayPlan.concat(EveryWeek)
+  return planList
+}
 
+const getPlan = function(){
+  
+}
+
+const getCurrentDayPlanIds = function(year,month,day,week){
+  let currentDayPlanIds = []
+  //key为当天的数据 year_month_day_*
+  //查询每天的数据  *   _*    _*  _*
+  //查询每月的数据  *   _*    _day_*
+  //查询每年的数据  *   _month_day_*
+  //查询每周的数据  *   _*    _*  _week
+  //查询连续的数据  *   _*
+  
+  let dayPlanIds = getDayPlanIds(year, month, day, week)
+  let todayPlanIds = getTodayPlanIds(year, month, day, week)
+  let monthPlanIds= getMonthPlanIds(year, month, day, week)
+  let yearPlanIds = getYearPlanIds(year, month, day, week)
+  let weekPlanIds = getWeekPlanIds(year, month, day, week)
+  let lianxuPlanIds = getLianxuPlanIds(year, month, day, week)
+  if (dayPlanIds) currentDayPlanIds = currentDayPlanIds.concat(dayPlanIds)
+  if (todayPlanIds) currentDayPlanIds = currentDayPlanIds.concat(todayPlanIds)
+  if (monthPlanIds) currentDayPlanIds = currentDayPlanIds.concat(monthPlanIds)
+  if (yearPlanIds) currentDayPlanIds = currentDayPlanIds.concat(yearPlanIds)
+  if (weekPlanIds) currentDayPlanIds = currentDayPlanIds.concat(weekPlanIds)
+  if (lianxuPlanIds) currentDayPlanIds = currentDayPlanIds.concat(lianxuPlanIds)
+  
   // 最好做一次排序
-  return currentDayPlan
+  return currentDayPlanIds
 }
 
 const updataPlan = function(o_plan,n_plan){

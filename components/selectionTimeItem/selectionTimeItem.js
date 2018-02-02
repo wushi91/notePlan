@@ -51,7 +51,7 @@ Component({
         selectOverTime: selectionTimeUtil.getItemTime(over),
       })
 
-      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectionTimeUtil.getItemTime(date).date, overTime: selectionTimeUtil.getItemTime(over).date })
+      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectionTimeUtil.getItemTime(date), overTime: selectionTimeUtil.getItemTime(over)})
     },
 
     bindBeginTimeChange(e) {
@@ -74,7 +74,7 @@ Component({
         selectOverTime: selectionTimeUtil.getItemTime(over),
       })
 
-      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectionTimeUtil.getItemTime(date).date, overTime: selectionTimeUtil.getItemTime(over).date })
+      this.triggerEvent("tabSelectionTimeItem", { beginTime: selectionTimeUtil.getItemTime(date), overTime: selectionTimeUtil.getItemTime(over) })
     },
 
     bindOverDateChange(e) {
@@ -87,9 +87,9 @@ Component({
         
       })
       if (this.data.selectStartTime){
-        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime, overTime: selectionTimeUtil.getItemTime(date) })
       }else{
-        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime, overTime: selectionTimeUtil.getItemTime(date) })
       }
       
     },
@@ -106,9 +106,9 @@ Component({
       })
 
       if (this.data.selectStartTime) {
-        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.selectStartTime, overTime: selectionTimeUtil.getItemTime(date)})
       } else {
-        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime.date, overTime: selectionTimeUtil.getItemTime(date).date })
+        this.triggerEvent("tabSelectionTimeItem", { beginTime: this.data.defaultStartTime, overTime: selectionTimeUtil.getItemTime(date) })
       }
     },
   }

@@ -68,7 +68,7 @@ Component({
     tapPlanItem(e){
       let plan = e.currentTarget.dataset.plan
       this.triggerEvent("tapPlanItem", { plan: plan})
-    }
+    },
 
   }
 })
