@@ -1,5 +1,4 @@
-  // pages/plan/addPlan/addPlan.js
-// const Plan = require('../../../bean/Plan.js')
+// pages/plan/editPlan/editPlan.js
 
 const planUtil = require('../../../utils/planUtil.js')
 const dbUtil = require('../../../utils/dbUtil.js')
@@ -15,92 +14,53 @@ Page({
    */
   data: {
     // 解决iphone textarea的兼容问题，边距
-    jianrong_margin_top :26,
-    jianrong_margin_left : 30,
-    
-    plan:{},
+    jianrong_margin_top: 26,
+    jianrong_margin_left: 30,
+
+    plan: {},
 
     repeatType_itemList: planUtil.REPEATTYPES,
     palnType_itemList: planUtil.PLANTYPES,
     remindType_itemList: planUtil.REMINDTYPES,
   },
 
+  initData(key,planId) {
+    let plan = JSON.parse(dbUtil.getPlan(key, planId))
+    plan.content = decodeURIComponent(plan.content)
+    plan.remark = decodeURIComponent(plan.remark)
+    plan.beginTime = selectionTimeUtil.getItemTime(new Date(plan.beginTime))
+    plan.overTime = selectionTimeUtil.getItemTime(new Date(plan.overTime))
 
-  initData(defaultBeginTime,defaultOverTime){
-      let content = ''
-      let remark = ''
-      let isAllDay = false
+    this.setData({
+      plan: plan
+    })
 
-      let beginTime = selectionTimeUtil.getItemTime(defaultBeginTime)
-      let overTime = selectionTimeUtil.getItemTime(defaultOverTime)
-    
-      let repeatType = this.data.repeatType_itemList[0]
-      let palnType = this.data.palnType_itemList[0]
-      let remindType = this.data.remindType_itemList[0]
+  },
 
-      let plan = {
-        content:content,
-        remark: remark,
-        isAllDay: isAllDay,
-        beginTime: beginTime,
-        overTime: overTime,
-        repeatType: repeatType,
-        palnType: palnType,
-        remindType: remindType
-      }
-      this.setData({
-        plan: plan
-      })
+  toUpdatePlan() {
+    console.log("编辑")
+    // key值和planId保持不变
+    dbUtil.updatePlan(this.data.plan)
+    app.updatePlanList()
+    setTimeout(() => {
+      this.toIndexPage()
+    }, 300)
+  },
 
-    },
+  toIndexPage: function () {
+    wx.navigateBack({
+      delta: 2
+    })
+  },
 
-    toSavePlan() {
-      console.log("新建")
-      dbUtil.savePlan(this.data.plan)
-      app.updatePlanList()
-      // 这里的延时主要是等待首页刷新完毕
-      setTimeout(() => {
-        this.toIndexPage()
-      }, 300)
-      // wx.showToast({
-      //   title: "添加成功",
-      //   icon: "success",
-      //   duration: 600,
-      //   success: res => {
-      //     setTimeout(() => {
-      //       this.toIndexPage()
-      //     }, 300)
-
-      //   }
-      // })
-    
-    },
-
-    toIndexPage: function () {
-      wx.navigateBack({
-        delta: 1
-      })
-    },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let defaultBeginTime = new Date()
-    defaultBeginTime.setFullYear(options.year)
-    defaultBeginTime.setMonth(options.month)
-    defaultBeginTime.setDate(options.day)
-    defaultBeginTime.setMinutes(0)
-    defaultBeginTime.setSeconds(0)
-    defaultBeginTime.setMilliseconds(0)
-    let defaultOverTime = new Date()
-    defaultOverTime.setFullYear(options.year)
-    defaultOverTime.setMonth(options.month)
-    defaultOverTime.setDate(options.day)
-    defaultOverTime.setMinutes(0)
-    defaultOverTime.setSeconds(0)
-    defaultOverTime.setMilliseconds(0)
-    defaultOverTime.setHours(defaultOverTime.getHours() + 1)
-    this.initData(defaultBeginTime, defaultOverTime)
+    let key = options.key
+    let planId = options.planId
+    
+    this.initData(key, planId)
   },
 
   /**
@@ -111,7 +71,7 @@ Page({
   },
 
   jianrongiPhone() {
-    let IPHONE_MARGIN_TOP =  12
+    let IPHONE_MARGIN_TOP = 12
     let IPHONE_MARGIN_LEFT = 24
     wx.getSystemInfo({
       success: res => {
@@ -130,50 +90,50 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   },
 
   //对输入监控，非业务，放到没人看到的地方
-  bindPlanContent(e){
+  bindPlanContent(e) {
     let plan = this.data.plan
     plan.content = e.detail.value
     this.setData({
-      plan:plan
+      plan: plan
     })
   },
 
@@ -193,7 +153,7 @@ Page({
     })
   },
 
-  bindtabRepeatTypeSelectionItem(e){
+  bindtabRepeatTypeSelectionItem(e) {
     let plan = this.data.plan
     plan.repeatType = e.detail.selectionItem
     this.setData({
@@ -217,14 +177,17 @@ Page({
     })
   },
 
-  bindtabSelectionTimeItem(e){
+  bindtabSelectionTimeItem(e) {
     let plan = this.data.plan
+    console.log(plan)
     plan.beginTime = e.detail.beginTime
     plan.overTime = e.detail.overTime
-    this.setData({
-      plan: plan
-    })
+    // this.setData({
+    //   plan: plan
+    // })
 
+    console.log(e.detail)
+    console.log(this.data)
   },
 
 })

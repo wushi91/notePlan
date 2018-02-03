@@ -46,6 +46,7 @@ button.my-button{
   line-height: 44rpx;
   padding:22rpx 0rpx;
   border: none;
+  
 }
 
 button.my-button:active{
@@ -62,6 +63,14 @@ button.main-button{
   width: 338rpx;
   font-size:32rpx;
   border-radius: 44rpx;
+  box-shadow: 0 10rpx 24rpx rgba(48,176,240,0.5);
+}
+
+button.main-button:active{
+  width: 338rpx;
+  font-size:32rpx;
+  border-radius: 44rpx;
+  box-shadow: 0 0rpx 0rpx;
 }
 
 button::after{

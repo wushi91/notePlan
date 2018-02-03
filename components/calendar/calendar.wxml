@@ -1,5 +1,5 @@
 <swiper circular="true"
-        duration="500"
+        duration="300"
         current="{{currentpage}}"
         bindchange="bindchange"
         bindanimationfinish="bindanimationfinish">
@@ -9,7 +9,7 @@
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>
-          <view wx:if="{{(item.year===today.year&&item.month===today.month&&item.day===today.day)||(item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day)}}" 
+          <view wx:if="{{item.planList.length>0}}" 
                 class="point"></view>
         </view>
       </view>
@@ -21,7 +21,7 @@
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>
-          <view wx:if="{{(item.year===today.year&&item.month===today.month&&item.day===today.day)||(item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day)}}" 
+          <view wx:if="{{item.planList.length>0}}" 
                 class="point"></view>
         </view>
       </view>
@@ -33,7 +33,7 @@
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>
-          <view wx:if="{{(item.year===today.year&&item.month===today.month&&item.day===today.day)||(item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day)}}" 
+          <view wx:if="{{item.planList.length>0}}" 
                 class="point"></view>
         </view>
       </view>

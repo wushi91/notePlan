@@ -7,158 +7,173 @@ const planUtil = require('../utils/planUtil.js')
   内部方法
 */
 // 具体的天数的
-const getTodayPlanIds = function (year, month, day, week) {
+const getTodayPlans = function (year, month, day, week) {
 
   let key = year + "_" + month + "_" + day + "_*"
-  let planIds = wx.getStorageSync(key)
-  return planIds
+  let plans = wx.getStorageSync(key)
+  return plans
 }
-const getDayPlanIds = function (year, month, day, week) {
+const getDayPlans = function (year, month, day, week) {
   let key = "*_*_*_*"
-  let planIds = wx.getStorageSync(key)
+  let plans = wx.getStorageSync(key)
 
-  return planIds
+  return plans
 }
 // 每月的1号
-const getMonthPlanIds = function (year, month, day, week) {
+const getMonthPlans = function (year, month, day, week) {
   let key = "*_*_" + day + "_*"
-  let planIds = wx.getStorageSync(key)
+  let plans = wx.getStorageSync(key)
 
-  return planIds
+  return plans
 }
 // 每年的12月1号
-const getYearPlanIds = function (year, month, day, week) {
+const getYearPlans = function (year, month, day, week) {
   let key = "*_" + month + "_" + day + "_*"
-  let planIds = wx.getStorageSync(key)
+  let plans = wx.getStorageSync(key)
 
-  return planIds
+  return plans
 }
 // 每周一
-const getWeekPlan = function (year, month, day, week) {
+const getWeekPlans = function (year, month, day, week) {
   let key = "*_*_*_" + week
-  let planIds = wx.getStorageSync(key)
+  let plans = wx.getStorageSync(key)
   
-  return planIds
+  return plans
 }
 
-const getLianxuPlanIds = function (year, month, day, week) {
-
+const getLianxuPlans = function (year, month, day, week) {
+  // 获取某一天的日程，通过连续日程去查找，如果起始时间是当天之后结束天之前，就要返回。
   let key = "*_*"
-  let planIds = []
-  let allLianxuPlanIds = JSON.parse(wx.getStorageSync(key))
+  let plans = []
+  let allLianxuPlans = wx.getStorageSync(key)
+  // console.log(allLianxuPlans)
   let currentTime = new Date(year + "-" + month + "-" + day).getTime()
-  for (let i = 0; i < allLianxuPlanIds.length;i++){
-    let item = allLianxuPlanIds[0]
-    if (currentTime > item.beginTime && currentTime <item.overTime){
+  for (let i = 0; i < allLianxuPlans.length;i++){
+    let item = JSON.parse(allLianxuPlans[i])
+
+    // 起始的当天00:00
+    let beginTime = new Date(item.beginTime)
+    beginTime.setHours(0)
+    beginTime.setMinutes(0)
+    beginTime.setSeconds(0)
+    beginTime.setMilliseconds(0)
+
+    // 结束当天23:59 其实这个可以不用控制，因为我用的是当天的0点
+    let overTime = new Date(item.overTime)
+    // overTime.setDate(overTime.getDate()+1)
+    // overTime.setHours(0)
+    // overTime.setMinutes(0)
+    // overTime.setSeconds(0)
+    // overTime.setMilliseconds(-1)
+    // console.log(item)
+    // console.log("currentTime:" + currentTime)
+    // console.log('beginTime:' + beginTime)
+    // console.log('overTime:' + overTime)
+    if (currentTime >= beginTime.getTime() && currentTime <= overTime.getTime()){
       //这就是我想要的planId
-      planIds.push(item.planId)
+      plans.push(allLianxuPlans[i])
     }
   }
-
-  return planIds
+  // console.log(plans)
+  return plans
 }
 
 
-const addPlanIdToKey = function(key,planId){
-  let planIdList = wx.getStorageSync(key)
-  if (!planIdList) planIdList = []
-  planIdList.push(planId)
-  wx.setStorageSync(key,planIdList)
+
+const addPlanToKey = function(key,sPlan){
+  let planList = wx.getStorageSync(key)
+  if (!planList) planList = []
+  planList.push(sPlan)
+  wx.setStorageSync(key, planList)
 }
 
-const addPlanToKeyPlanId = function (planId,plan) {
-  wx.setStorageSync(planId, plan)
-
-}
+// const addPlanToKeyPlanId = function (planId,plan) {
+//   wx.setStorageSync(planId, plan)
+// }
 
 /*
  核心代码：获取日程的时候key指向planId，planId指向plan。删除日程的时候，根据planId去删除。*/
-const savePlan = function(plan){
+const savePlan = function (vPlan){
   // 需要判断根据内容判断数据的key是什么
-  let key = planUtil.generateKey(plan)
-  let planId = "id_" + new Date().getTime()
-  let sPlan = planUtil.createSavePlan(plan)
+  let key = planUtil.generateKey(vPlan)
+  let sPlan = planUtil.createSavePlan(key,vPlan)
   console.log("key值：" + key)
-  console.log("planId值：" + planId)
-  addPlanIdToKey(key, planId)
-  addPlanToKeyPlanId(planId, sPlan)
+  addPlanToKey(key, sPlan)
 }
 
-const getPlanList = function (year, month, day, week) {
-  let planList = []
-  let planIds = getCurrentDayPlanIds(year, month, day, week)
-  for (let i = 0; i < planIds.length;i++){
-    planList.push(wx.getStorageSync(planIds[i])) 
+// const getPlanList = function (year, month, day, week) {
+//   let planList = []
+//   let planIds = getCurrentDayPlanIds(year, month, day, week)
+
+//   console.log('我操')
+//   for (let i = 0; i < planIds.length;i++){
+//     planList.push(wx.getStorageSync(planIds[i])) 
+//   }
+//   return planList
+// }
+
+const getPlan = function(key,planId){
+  let plan = {}
+  let plans = wx.getStorageSync(key)
+
+  for (let i = 0; i < plans.length; i++) {
+    let item = JSON.parse(plans[i])
+    if (item.planId === planId) {
+      return plans[i]
+    }
   }
-
-  return planList
 }
 
-const getPlan = function(){
-  
-}
+const getPlanList = function(date){
 
-const getCurrentDayPlanIds = function(year,month,day,week){
-  let currentDayPlanIds = []
-  //key为当天的数据 year_month_day_*
-  //查询每天的数据  *   _*    _*  _*
-  //查询每月的数据  *   _*    _day_*
-  //查询每年的数据  *   _month_day_*
-  //查询每周的数据  *   _*    _*  _week
-  //查询连续的数据  *   _*
+  let year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  let week = date.getDay()
+
+  let currentDayPlanList = []
   
-  let dayPlanIds = getDayPlanIds(year, month, day, week)
-  let todayPlanIds = getTodayPlanIds(year, month, day, week)
-  let monthPlanIds= getMonthPlanIds(year, month, day, week)
-  let yearPlanIds = getYearPlanIds(year, month, day, week)
-  let weekPlanIds = getWeekPlanIds(year, month, day, week)
-  let lianxuPlanIds = getLianxuPlanIds(year, month, day, week)
-  if (dayPlanIds) currentDayPlanIds = currentDayPlanIds.concat(dayPlanIds)
-  if (todayPlanIds) currentDayPlanIds = currentDayPlanIds.concat(todayPlanIds)
-  if (monthPlanIds) currentDayPlanIds = currentDayPlanIds.concat(monthPlanIds)
-  if (yearPlanIds) currentDayPlanIds = currentDayPlanIds.concat(yearPlanIds)
-  if (weekPlanIds) currentDayPlanIds = currentDayPlanIds.concat(weekPlanIds)
-  if (lianxuPlanIds) currentDayPlanIds = currentDayPlanIds.concat(lianxuPlanIds)
+  
+  let dayPlans = getDayPlans(year, month, day, week)
+  let todayPlans = getTodayPlans(year, month, day, week)
+  let monthPlans= getMonthPlans(year, month, day, week)
+  let yearPlans = getYearPlans(year, month, day, week)
+  let weekPlans = getWeekPlans(year, month, day, week)
+  let lianxuPlans = getLianxuPlans(year, month, day, week)
+  if (dayPlans) currentDayPlanList = currentDayPlanList.concat(dayPlans)
+  if (todayPlans) currentDayPlanList = currentDayPlanList.concat(todayPlans)
+  if (monthPlans) currentDayPlanList = currentDayPlanList.concat(monthPlans)
+  if (yearPlans) currentDayPlanList = currentDayPlanList.concat(yearPlans)
+  if (weekPlans) currentDayPlanList = currentDayPlanList.concat(weekPlans)
+  if (lianxuPlans) currentDayPlanList = currentDayPlanList.concat(lianxuPlans)
   
   // 最好做一次排序
-  return currentDayPlanIds
+  return currentDayPlanList
 }
 
-const updataPlan = function(o_plan,n_plan){
+const updatePlan = function(plan){
   /* 因为有可能修改了项目的起始时间，重复模式，所以key值会改变，统一删除旧的数据，然后插入新的数据，新的那条数据创建时间是不变的
   */
   // 删掉旧的日程
-  deletePlan(o_plan)
+  deletePlan(plan.key,plan.planId)
   // 
-  savePlan(n_plan)
+  savePlan(plan)
 }
 
-const deletePlan = function (plan){
+const deletePlan = function (key,planId){
   //根据年月日还有数据的id去删除，获取到一个数据，需要判断他的key是什么，然后在进去key里面删除对应的id
-
-
-  // console.log("--------------------------")
-  // console.log(plan.beginDate)
-
-  // console.log("--------------------------")
-  // console.log(plan)
-  let key = generateKey(plan)
-  let planId = plan.planId
-  let planList = wx.getStorageSync(key)
-
-
+  let plans = wx.getStorageSync(key)
   let delIndex =-1
-  for (let i = 0; i < planList.length;i++){
-    let item = planList[i]
-    let newItem = JSON.parse(item)
-    if (newItem.planId === planId){
+  for (let i = 0; i < plans.length;i++){
+    let item = JSON.parse(plans[i])
+    if (item.planId === planId){
       delIndex = i
       break;
     }
   }
   if (delIndex>=0){
-    planList.splice(delIndex, 1)
-    wx.setStorageSync(key, planList)
+    plans.splice(delIndex, 1)
+    wx.setStorageSync(key, plans)
   }
   console.log("--------------------------")
   console.log("删除成功")
@@ -166,11 +181,30 @@ const deletePlan = function (plan){
 }
 
 
+const compeltePlan = function (key,planId,completedDays){
+  //如果plan中有一个属性，completedDays，保存完成了的日期
+
+
+  let plans = wx.getStorageSync(key)
+  for (let i = 0; i < plans.length; i++) {
+    let item = JSON.parse(plans[i])
+    if (item.planId === planId) {
+      // 找到了
+      item.completedDays = completedDays
+      plans[i] = JSON.stringify(item)
+      wx.setStorageSync(key, plans)
+      break;
+    }
+  }
+}
+
 
 module.exports = {
   savePlan,
+  getPlanList,
   getPlan,
-  updataPlan,
-  deletePlan
+  updatePlan,
+  deletePlan,
+  compeltePlan
 }
 

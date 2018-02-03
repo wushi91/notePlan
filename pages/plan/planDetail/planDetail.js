@@ -2,6 +2,7 @@
 
 const util = require('../../../utils/util.js')
 const dbUtil = require('../../../utils/dbUtil.js')
+const app = getApp()
 
 Page({
 
@@ -13,16 +14,10 @@ Page({
   },
 
 
-  toPlanEditPage: function () {
-
-     
+  toEditPlanPage: function () {
     let plan = this.data.plan
-    plan.content = encodeURIComponent(plan.content)
-    plan.remark = encodeURIComponent(plan.remark)
-    plan = JSON.stringify(plan)
-
     wx.navigateTo({
-      url: "/pages/plan/addPlan/addPlan?plan=" + plan
+      url: "/pages/plan/editPlan/editPlan?key=" + plan.key + "&planId=" + plan.planId
     })
   },
 
@@ -41,16 +36,16 @@ Page({
           console.log('用户点击确定')
         } else if (res.cancel) {
           //这里是确定
-          dbUtil.deletePlan(this.data.plan)
-          
+          dbUtil.deletePlan(this.data.plan.key, this.data.plan.planId)
+          app.updatePlanList()
           wx.showToast({
             title:"删除成功",
             icon:"success",
-            duration:500,
+            duration:300,
             success:res=>{
               setTimeout(()=>{
                 this.toIndexPage()
-              },500)
+              },300)
               
             }
           })
@@ -65,16 +60,24 @@ Page({
 
     // console.log(options.plan)
 
-
-    let plan = JSON.parse(options.plan)
+    
+    let key = options.key
+    let planId = options.planId
+    console.log("key ="+key)
+    console.log("planId ="+planId)
+    console.log(dbUtil.getPlan(key, planId))
+    let plan = JSON.parse(dbUtil.getPlan(key, planId))
     plan.content = decodeURIComponent(plan.content)
     plan.remark = decodeURIComponent(plan.remark)
-    plan.beginDateText = (new Date(plan.beginDate).getMonth() + 1) + "月" + new Date(plan.beginDate).getDate()+"日"
-    plan.weekText = util.getChinaWeekNum(new Date(plan.beginDate),"周")
+    plan._beginTime = util.formatJustTime(new Date(plan.beginTime))
+    plan._overTime = util.formatJustTime(new Date(plan.overTime))
+    plan._beginTimeText = util.formatTimeChinaYueRi(new Date(plan.beginTime))//12月1日
+    plan.weekText = util.getChinaWeekNum(new Date(plan.beginTime), "周")
 
     this.setData({
       plan: plan,
     })
+    
   },
 
   /**
@@ -125,6 +128,7 @@ Page({
   onShareAppMessage: function () {
   
   },
+
 
   toIndexPage: function () {
     wx.navigateBack({

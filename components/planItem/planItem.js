@@ -25,43 +25,44 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    toPlanClass(planStr) {
-      let plan = new Plan()
-      plan.planId = planStr.planId 
-      plan.content = planStr.content
-      plan.isAllDay = planStr.isAllDay
-      plan.isCompleted = planStr.isCompleted
-      plan.isCanEdit = planStr.isCanEdit
+    // toPlanClass(planStr) {
+    //   let plan = new Plan()
+    //   plan.planId = planStr.planId 
+    //   plan.content = planStr.content
+    //   plan.isAllDay = planStr.isAllDay
+    //   plan.isCompleted = planStr.isCompleted
+    //   plan.isCanEdit = planStr.isCanEdit
 
-      plan.beginDate = planStr.beginDate
-      plan.overDate = planStr.overDate
-      plan.beginTime = planStr.beginTime
-      plan.overTime = planStr.overTime
-      plan.repeatType = planStr.repeatType
-      plan.palnType = planStr.palnType
-      plan.remindType = planStr.remindType
-      plan.remark = planStr.remark
-      return plan
-    },
+    //   plan.beginDate = planStr.beginDate
+    //   plan.overDate = planStr.overDate
+    //   plan.beginTime = planStr.beginTime
+    //   plan.overTime = planStr.overTime
+    //   plan.repeatType = planStr.repeatType
+    //   plan.palnType = planStr.palnType
+    //   plan.remindType = planStr.remindType
+    //   plan.remark = planStr.remark
+    //   return plan
+    // },
+
     tabCheckBox(e){
       let plan = e.currentTarget.dataset.plan
-      
+      this.triggerEvent("tabCheckBox", { plan: plan })
 
-      let planList = this.data.planList
-      for (let i = 0; i < planList.length;i++){
-        let item = planList[i]
-        if (planList[i].planId === plan.planId){
-          planList[i].isCompleted = !planList[i].isCompleted
-          break;
-        }
-      }
+      // let planList = this.data.planList
+      // for (let i = 0; i < planList.length;i++){
+      //   let item = planList[i]
+      //   if (planList[i].planId === plan.planId){
+      //     planList[i].isCompleted = !planList[i].isCompleted
+      //     break;
+      //   }
+      // }
 
-      this.setData({
-        planList: planList
-      })
+      // this.setData({
+      //   planList: planList
+      // })
 
-      plan.isCompleted = !plan.isCompleted
-      dbUtil.updataPlan(this.toPlanClass(plan), this.toPlanClass(plan))
+      // plan.isCompleted = !plan.isCompleted
+      // dbUtil.compeltePlan(this.toPlanClass(plan), this.toPlanClass(plan))
     },
 
 

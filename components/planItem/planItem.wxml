@@ -13,7 +13,7 @@
   <view class='content-wrapper' bindtap='tapPlanItem' data-plan='{{item}}'>
     <span class='content'>{{item.content}}</span>
     <view  class='time-wrapper'>
-      <span class='time'>{{item.beginTime}} - {{item.overTime}}</span>
+      <span class='time'>{{item._beginTime}} - {{item._overTime}}</span>
       <image wx:if="{{item.remindType.prop!=='no-remind'}}" class='remind' src='/images/icon-alarm.png'></image>
     </view>
   </view>

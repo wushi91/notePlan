@@ -3,15 +3,15 @@
 <view class='content-wrapper'>
   <text class='plan-content font-medium'>{{plan.content}}</text>
   <!--  -->
-  <text class='font-normal-black-32'>{{plan.beginDateText}} {{plan.weekText}}</text>
+  <text class='font-normal-black-32'>{{plan._beginTimeText}} {{plan.weekText}}</text>
   <view class='time-wrapper'>
-    <text class='time font-lighter'>{{plan.beginTime}}</text>
+    <text class='time font-lighter'>{{plan._beginTime}}</text>
     <view class='image-wrapper'>
       <image src="/images/icon-arrow-big.png"></image>
     </view>
     
     
-    <text class='time font-lighter'>{{plan.overTime}}</text>
+    <text class='time font-lighter'>{{plan._overTime}}</text>
   </view>
   <text class='font-normal-black-32'>{{plan.repeatType.label}}</text>
   <view class='plan-type'>
@@ -25,5 +25,5 @@
   <text class='font-normal-black-32 remark'>{{plan.remark}}</text>
 </view>
 
-<button class='my-button main-button' bindtap='toPlanEditPage'>编 辑</button>
+<button class='my-button main-button' bindtap='toEditPlanPage'>编 辑</button>
 <text class='delete-plan' bindtap='showDeleteThePlan'>删除日程</text>

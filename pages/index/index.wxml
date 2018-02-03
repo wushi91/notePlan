@@ -5,13 +5,15 @@
  <calendar weekZero="{{week0}}"
            weekOne="{{week1}}"
            weekTwo="{{week2}}"
+           selectDay="{{selectDay}}"
            currentpage="{{currentpage}}"
            bindtabSelectDay="tabSelectDay"></calendar>
 </view> 
 <view class='content-wrapper'>
     <planItem 
           planList="{{planList}}" 
-          bindtapPlanItem='tapPlanItem'>
+          bindtapPlanItem='tapPlanItem'
+          bindtabCheckBox='tabCheckBox'>
     </planItem>
 </view>
 </view>

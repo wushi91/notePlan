@@ -1,0 +1,71 @@
+<!--pages/plan/editPlan/editPlan.wxml-->
+<!--pages/plan/addPlan/addPlan.wxml-->
+
+<view class='add-plan'>
+  <!--计划内容  -->
+  <view class='content-wrapper'>
+    <input class='font-normal-black-32'
+         bindinput="bindPlanContent" 
+         placeholder-style="color:rgba(166,166,166,1);" 
+         maxlength='20' 
+         placeholder="请输入你的日程或计划"
+         value='{{plan.content}}' />
+  </view>
+
+
+  <view class='all-day-wrapper'>
+    <text class='font-normal-black-32'>全天事件</text>
+    <image class='checkbox' 
+           bindtap="bindAllDayCheckChange" 
+           src='{{plan.isAllDay?"/images/icon-alldayevent-on.png":"/images/icon-alldayevent-off.png"}}'></image>
+  </view>
+
+  <!--计划时间  -->
+  <view class='time-wrapper'>
+    <selectionTimeItem isAllDay="{{plan.isAllDay}}" 
+                       defaultStartTime="{{plan.beginTime}}" 
+                       defaultOverTime="{{plan.overTime}}"
+                       bindtabSelectionTimeItem="bindtabSelectionTimeItem"></selectionTimeItem>
+  </view>
+
+  <selectionItem defaultItem="{{plan.repeatType}}" 
+                 itemList="{{repeatType_itemList}}"
+                 bindtabSelectionItem="bindtabRepeatTypeSelectionItem"></selectionItem>
+
+  <!-- 计划类型：工作 -->
+  <view class="selection-item">  
+    <selectionItem 
+               defaultItem="{{plan.palnType}}" 
+               itemList="{{palnType_itemList}}"
+               bindtabSelectionItem="bindtabPlanTypeSelectionItem"></selectionItem>
+  </view>
+
+
+  <!--计划：事件发生时提醒  -->
+  <view class="selection-item">
+    <selectionItem 
+               defaultItem="{{plan.remindType}}" 
+               itemList="{{remindType_itemList}}"
+               bindtabSelectionItem="bindtabRemindTypeSelectionItem"></selectionItem>
+  </view>
+
+
+
+  <!--计划：备注  -->
+  <view class='remark-wrapper'
+        style='padding:{{jianrong_margin_top}}rpx {{jianrong_margin_left}}rpx;'>
+    <textarea class="font-normal-black-32"
+              placeholder-style="color:rgba(166,166,166,1);" 
+              maxlength='60' 
+              value='{{plan.remark}}'
+              placeholder="备注（选填）"
+              bindinput="bindPlanRemark" ></textarea>
+    <text class='length-tip font-normal-gray-24'
+        style='padding:0 {{jianrong_margin_left}}rpx {{jianrong_margin_top}}rpx 0;'>60</text>
+  </view>
+
+  <view>
+    <button class='my-button save-plan' disabled='{{!plan.content}}' bindtap='toUpdatePlan'>保存</button>
+  </view>
+
+</view>

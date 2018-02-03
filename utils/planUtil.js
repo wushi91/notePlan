@@ -29,11 +29,12 @@ const generateKey = function (plan) {
   let key =''
   // 如果起始时间和结束时间不是同一天
   if (plan.beginTime.year !== plan.overTime.year || plan.beginTime.month !== plan.overTime.month  || plan.beginTime.day !== plan.overTime.day){
-    // console.log('不是同一天')
     return key = "*_*"
-    }
+  }
   // console.log('同一天')
-  let date = plan.beginTime.date
+  let date = new Date(plan.beginTime.date)
+  console.log('date')
+  console.log(date)
   let year = date.getFullYear()
   let month = date.getMonth()+1
   let day = date.getDate()
@@ -65,18 +66,21 @@ const generateKey = function (plan) {
 
 // 根据传入的值生成对象，这个对象用于界面数据的显示
 /*vPlan 视图的plan ，sPlan为保存的 */
-const createSavePlan = function (vPlan){
+const createSavePlan = function (key,vPlan){
   let sPlan = {}
   // planId
+  sPlan.key = key
+  sPlan.planId = "id_" + new Date().getTime()
   sPlan.content = encodeURIComponent(vPlan.content)//因为要转换成json格式保存，所以要编码
-  sPlan.isAllDay = encodeURIComponent(vPlan.isAllDay)
-  sPlan.completedDay = sPlan.completedDay ? sPlan.completedDay:[]
+  sPlan.remark = encodeURIComponent(vPlan.remark)
+  sPlan.isAllDay = vPlan.isAllDay
+  sPlan.completedDays = sPlan.completedDays ? sPlan.completedDays:[]
   sPlan.beginTime = new Date(vPlan.beginTime.date).getTime()
   sPlan.overTime = new Date(vPlan.overTime.date).getTime()
   sPlan.repeatType = vPlan.repeatType
   sPlan.palnType = vPlan.palnType
   sPlan.remindType = vPlan.remindType
-  sPlan.remark = vPlan.remark
+  
   sPlan.creatTime = vPlan.creatTime ? vPlan.creatTime : new Date().getTime()//如果没有创建时间，则添加时间
   sPlan.updateTime = new Date().getTime()// 修改时间.getTime()
   return JSON.stringify(sPlan)

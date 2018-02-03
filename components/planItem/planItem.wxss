@@ -46,6 +46,19 @@ image.completed{
   
 }
 
+.plan-item-wrapper:active .plan-item{
+  background-color: #E6E6E6;
+  border: 2px solid #E6E6E6;
+}
+
+.plan-item-wrapper:active .plan-item-shadow{
+  margin-top: 0px;
+  border-radius: 8rpx;
+  height: 0px;
+  box-shadow: 0 0rpx 0rpx rgba(50, 50, 51, 0.4);
+ 
+}
+
 .content-wrapper{
   display: flex;
   flex: 1;

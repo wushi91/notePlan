@@ -9,11 +9,38 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const formatJustTime = date => {
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+
+  return [hour, minute].map(formatNumber).join(':')
+}
+
+const formatTimeChinaYueRi = date => {
+  return (date.getMonth() + 1) + "月" + date.getDate() + "日"
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
 
+const isContainDate = (completedDays, date) =>{
+  let dateString = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
+  let index = -1
+  for (let i = 0; i < completedDays.length; i++) {
+    let dateItem = completedDays[i]
+    if (dateItem === dateString) {
+      index = i
+      break;
+    }
+  }
+  if (index >= 0) {
+    return true
+  } else {
+    return false
+  }
+}
 
 const getChinaWeekNum= (date,before)=>{
   let weekNum = date.getDay()
@@ -103,5 +130,8 @@ const getChinaWeekNum= (date,before)=>{
 module.exports = {
   formatTime: formatTime,
   getChinaWeekNum,
-  formatNumber
+  formatJustTime,
+  formatTimeChinaYueRi,
+  formatNumber,
+  isContainDate
 }

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "编辑日程",
+  "usingComponents": {
+    "selectionItem": "/components/selectionItem/selectionItem",
+    "selectionTimeItem": "/components/selectionTimeItem/selectionTimeItem"
+  }
+}

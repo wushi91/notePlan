@@ -35,5 +35,10 @@ App({
   },
   globalData: {
     userInfo: null
+  },
+
+  updatePlanList:function(){
+    // 添加日程后要更新选择的日期
+    console.log('updatePlanList')
   }
 })
