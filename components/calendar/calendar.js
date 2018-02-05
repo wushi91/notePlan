@@ -49,7 +49,9 @@ Component({
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       day: new Date().getDate(),
-    }
+    },
+
+    startSwiperChange:false,//一个莫名其妙的兼容问题，安卓手机点击了wee
               
   },
 
@@ -62,12 +64,15 @@ Component({
       let day = e.currentTarget.dataset.day
       
       // console.log(e.currentTarget.dataset)
-      this.triggerEvent("tabSelectDay", { data: e.currentTarget.dataset.day})
+      this.triggerEvent("tabSelectDay", { data: e.currentTarget.dataset.day })
       
       // console.log(e.currentTarget.dataset)
     },
 
     bindchange(e) {
+      this.setData({
+        startSwiperChange:true
+      })
       console.log("-----------")
       console.log("bindchange")
       let week0 = this.data.weekZero
@@ -93,6 +98,7 @@ Component({
              weekZero: week0,
              weekTwo: week2
            })
+           
           break;
 
         case 2://到了week2，设置上下页的数据,上一周是week1,下一周是week0
@@ -110,21 +116,32 @@ Component({
       
 
     },
-    bindanimationfinish(e) {
+    bindswiperanimationfinish(e) {
+
+      if (this.data.startSwiperChange){
+        this.setData({
+          startSwiperChange: false
+        })
+
+      }else{
+        return
+      }
       console.log("bindanimationfinish")
       console.log(e)
 
       let week0 = this.data.weekZero
       let week1 = this.data.weekOne
       let week2 = this.data.weekTwo
-
+      console.log("week2")
       switch (e.detail.current) {
         case 0://到了week0，查询当前页的planList，即showPlan = true
           let dayInWeek0 = new Date(week0[0].date)
           week0 = calendarUtil.getWeekLastOrNext(dayInWeek0, 0,true)
+          
           this.setData({
             weekZero: week0,
           })
+          this.triggerEvent("tabSelectDay", { data: { year: week0[3].year, month: week0[3].month, day: week0[3].day, planList: week0[3].planList }})
           break;
 
         case 1://到了week1
@@ -133,6 +150,7 @@ Component({
           this.setData({
             weekOne: week1,
           })
+          this.triggerEvent("tabSelectDay", { data: { year: week1[3].year, month: week1[3].month, day: week1[3].day, planList: week1[3].planList }} )
           break;
 
         case 2://到了week2，设置上下页的数据,上一周是week1,下一周是week0
@@ -141,6 +159,7 @@ Component({
           this.setData({
             weekTwo: week2
           })
+          this.triggerEvent("tabSelectDay", { data: { year: week2[3].year, month: week2[3].month, day: week2[3].day, planList: week2[3].planList }})
           break;
       }
       

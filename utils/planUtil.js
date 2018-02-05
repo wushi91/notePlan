@@ -75,6 +75,7 @@ const createSavePlan = function (key,vPlan){
   sPlan.remark = encodeURIComponent(vPlan.remark)
   sPlan.isAllDay = vPlan.isAllDay
   sPlan.completedDays = sPlan.completedDays ? sPlan.completedDays:[]
+  sPlan.deletedDays = sPlan.deletedDays ? sPlan.deletedDays : []//删除重复的本次事件时的操作
   sPlan.beginTime = new Date(vPlan.beginTime.date).getTime()
   sPlan.overTime = new Date(vPlan.overTime.date).getTime()
   sPlan.repeatType = vPlan.repeatType

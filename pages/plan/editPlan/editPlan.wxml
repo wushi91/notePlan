@@ -13,7 +13,7 @@
   </view>
 
 
-  <view class='all-day-wrapper'>
+  <view class='all-day-wrapper' >
     <text class='font-normal-black-32'>全天事件</text>
     <image class='checkbox' 
            bindtap="bindAllDayCheckChange" 
@@ -21,7 +21,7 @@
   </view>
 
   <!--计划时间  -->
-  <view class='time-wrapper'>
+  <view class='time-wrapper' wx:if="{{!plan.isAllDay}}">
     <selectionTimeItem isAllDay="{{plan.isAllDay}}" 
                        defaultStartTime="{{plan.beginTime}}" 
                        defaultOverTime="{{plan.overTime}}"

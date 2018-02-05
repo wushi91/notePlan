@@ -20,7 +20,7 @@
   </view>
 
   <!--计划时间  -->
-  <view class='time-wrapper'>
+  <view class='time-wrapper' wx:if="{{!plan.isAllDay}}">
     <selectionTimeItem isAllDay="{{plan.isAllDay}}" 
                        defaultStartTime="{{plan.beginTime}}" 
                        defaultOverTime="{{plan.overTime}}"

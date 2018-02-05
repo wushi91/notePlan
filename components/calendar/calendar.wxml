@@ -2,10 +2,10 @@
         duration="300"
         current="{{currentpage}}"
         bindchange="bindchange"
-        bindanimationfinish="bindanimationfinish">
+        bindanimationfinish="bindswiperanimationfinish">
     <swiper-item>
       <view class='week'>
-        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}}' wx:for="{{weekZero}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
+        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}} {{item.year===today.year&&item.month===today.month&&item.day===today.day?"today":""}}' wx:for="{{weekZero}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>
@@ -17,7 +17,7 @@
     
     <swiper-item>
       <view class='week'>
-        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}}' wx:for="{{weekOne}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
+        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}} {{item.year===today.year&&item.month===today.month&&item.day===today.day?"today":""}}' wx:for="{{weekOne}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>
@@ -29,7 +29,7 @@
 
     <swiper-item>
       <view class='week'>
-        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}}' wx:for="{{weekTwo}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
+        <view class='day {{item.year===selectDay.year&&item.month===selectDay.month&&item.day===selectDay.day?"select-day":""}} {{item.year===today.year&&item.month===today.month&&item.day===today.day?"today":""}}' wx:for="{{weekTwo}}" wx:key='{{index}}' bindtap='selectDay' data-day='{{item}}'>
           <text>{{item.china_weekNum}}</text>
           <text>{{item.day}}</text>
           <text>{{item.china_day}}</text>

@@ -4,16 +4,15 @@
   <text class='plan-content font-medium'>{{plan.content}}</text>
   <!--  -->
   <text class='font-normal-black-32'>{{plan._beginTimeText}} {{plan.weekText}}</text>
-  <view class='time-wrapper'>
+  <view class='time-wrapper' wx:if="{{!plan.isAllDay}}">
     <text class='time font-lighter'>{{plan._beginTime}}</text>
     <view class='image-wrapper'>
       <image src="/images/icon-arrow-big.png"></image>
     </view>
     
-    
     <text class='time font-lighter'>{{plan._overTime}}</text>
   </view>
-  <text class='font-normal-black-32'>{{plan.repeatType.label}}</text>
+  <text class='font-normal-black-32 remind-type'>{{plan.repeatType.label}}</text>
   <view class='plan-type'>
     <text class='font-normal-black-32'>{{plan.palnType.label}}</text>
     <view class='point' style='background-color:{{plan.palnType.color}}'></view>
@@ -26,4 +25,4 @@
 </view>
 
 <button class='my-button main-button' bindtap='toEditPlanPage'>编 辑</button>
-<text class='delete-plan' bindtap='showDeleteThePlan'>删除日程</text>
+<text class='delete-plan' bindtap='toDeleteThePlan'>删除日程</text>

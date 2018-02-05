@@ -15,29 +15,87 @@ const getTodayPlans = function (year, month, day, week) {
 }
 const getDayPlans = function (year, month, day, week) {
   let key = "*_*_*_*"
-  let plans = wx.getStorageSync(key)
+  let plans = []
+  let allDayPlans = wx.getStorageSync(key)
+
+  for (let i = 0; i < allDayPlans.length; i++) {
+    let item = JSON.parse(allDayPlans[i])
+    //判断当天是否删除了
+    if (hasTheDayDelete(year, month, day, item.deletedDays)) {
+      break;
+    }
+    // 判断日程的起始时间是否处于当天
+    if (isTheDayInBeginToOver(year, month, day, item.beginTime, "2100-12-31")) {
+      plans.push(allDayPlans[i])
+    }
+  }
 
   return plans
 }
 // 每月的1号
 const getMonthPlans = function (year, month, day, week) {
   let key = "*_*_" + day + "_*"
-  let plans = wx.getStorageSync(key)
+  let plans = []
+  let allMonthPlans = wx.getStorageSync(key)
+
+  for (let i = 0; i < allMonthPlans.length; i++) {
+    let item = JSON.parse(allMonthPlans[i])
+    //判断当天是否删除了
+    if (hasTheDayDelete(year, month, day, item.deletedDays)) {
+      break;
+    }
+    // 判断日程的起始时间是否处于当天
+    if (isTheDayInBeginToOver(year, month, day, item.beginTime, "2100-12-31")) {
+      plans.push(allMonthPlans[i])
+    }
+  }
 
   return plans
 }
 // 每年的12月1号
 const getYearPlans = function (year, month, day, week) {
   let key = "*_" + month + "_" + day + "_*"
-  let plans = wx.getStorageSync(key)
+  let plans = []
+  let allYearPlans = wx.getStorageSync(key)
+
+  for (let i = 0; i < allYearPlans.length; i++) {
+    let item = JSON.parse(allYearPlans[i])
+    //判断当天是否删除了
+    if (hasTheDayDelete(year, month, day, item.deletedDays)) {
+      break;
+    }
+    // 判断日程的起始时间是否处于当天
+    if (isTheDayInBeginToOver(year, month, day, item.beginTime, "2100-12-31")) {
+      plans.push(allYearPlans[i])
+    }
+  }
+  
+
 
   return plans
 }
 // 每周一
 const getWeekPlans = function (year, month, day, week) {
   let key = "*_*_*_" + week
-  let plans = wx.getStorageSync(key)
+  let plans = []
+  let allWeekPlans = wx.getStorageSync(key)
   
+  for (let i = 0; i < allWeekPlans.length; i++) {
+    let item = JSON.parse(allWeekPlans[i])
+    //判断当天是否删除了
+    if (hasTheDayDelete(year, month, day, item.deletedDays)) {
+      break;
+    }
+    // 判断日程的起始时间是否处于当天
+    if (isTheDayInBeginToOver(year, month, day, item.beginTime, "2100-12-31")) {
+      plans.push(allWeekPlans[i])
+    }
+  }
+
+  return plans
+
+
+
   return plans
 }
 
@@ -46,38 +104,50 @@ const getLianxuPlans = function (year, month, day, week) {
   let key = "*_*"
   let plans = []
   let allLianxuPlans = wx.getStorageSync(key)
-  // console.log(allLianxuPlans)
-  let currentTime = new Date(year + "-" + month + "-" + day).getTime()
+
   for (let i = 0; i < allLianxuPlans.length;i++){
     let item = JSON.parse(allLianxuPlans[i])
-
-    // 起始的当天00:00
-    let beginTime = new Date(item.beginTime)
-    beginTime.setHours(0)
-    beginTime.setMinutes(0)
-    beginTime.setSeconds(0)
-    beginTime.setMilliseconds(0)
-
-    // 结束当天23:59 其实这个可以不用控制，因为我用的是当天的0点
-    let overTime = new Date(item.overTime)
-    // overTime.setDate(overTime.getDate()+1)
-    // overTime.setHours(0)
-    // overTime.setMinutes(0)
-    // overTime.setSeconds(0)
-    // overTime.setMilliseconds(-1)
-    // console.log(item)
-    // console.log("currentTime:" + currentTime)
-    // console.log('beginTime:' + beginTime)
-    // console.log('overTime:' + overTime)
-    if (currentTime >= beginTime.getTime() && currentTime <= overTime.getTime()){
-      //这就是我想要的planId
+    //判断当天是否删除了
+    if (hasTheDayDelete(year, month, day, item.deletedDays)){
+      break;
+    }
+    // 判断日程的起始时间是否处于当天
+    if (isTheDayInBeginToOver(year, month, day, item.beginTime, item.overTime)){
       plans.push(allLianxuPlans[i])
     }
   }
-  // console.log(plans)
+
   return plans
 }
 
+const hasTheDayDelete = function (year, month, day, deletedDays){
+  let isDelete = false
+  for (let i = 0; i < deletedDays.length; i++) {
+    let theDay = year + '-' + (month - 1) + '-' + day
+    if (theDay === deletedDays[i]) {
+      isDelete = true
+      break;
+    }
+  }
+  return isDelete
+}
+
+// 比如设置了连续的日期7号到10号，因为key的原因，所有连续日程都放在*_*中，即所有*_*为连续日程，里面有个7号到10号的，要通过以下方法获取
+const isTheDayInBeginToOver = function (year, month, day, beginTime,overTime){
+  let theDay = new Date(year + "-" + month + "-" + day).getTime()
+  // 判断起始时间// 起始的当天00:00
+  beginTime = new Date(beginTime)
+  beginTime.setHours(0)
+  beginTime.setMinutes(0)
+  beginTime.setSeconds(0)
+  beginTime.setMilliseconds(0)
+  overTime = new Date(overTime)
+  if (theDay >= beginTime.getTime() && theDay <= overTime.getTime()) {
+    //这就是我想要的planId
+    return true
+  }
+  return false
+}
 
 
 const addPlanToKey = function(key,sPlan){
@@ -147,8 +217,58 @@ const getPlanList = function(date){
   if (weekPlans) currentDayPlanList = currentDayPlanList.concat(weekPlans)
   if (lianxuPlans) currentDayPlanList = currentDayPlanList.concat(lianxuPlans)
   
-  // 最好做一次排序
-  return currentDayPlanList
+  // 做一次冒泡排序
+  
+  return maoPaoPaiXu(currentDayPlanList)
+  // return currentDayPlanList
+}
+
+const  maoPaoPaiXu = function(planList){
+  // 全天事件排最前
+  for (let i = 0; i < planList.length;i++){
+    
+    for (let j = i+1 ; j < planList.length;j++){
+      let item1 = JSON.parse(planList[i])
+      let item2 = JSON.parse(planList[j])
+      let beginTime1 = 0
+      if (item1.isAllDay){
+        console.log(item1)
+        console.log('----------')
+      }else{
+        console.log('sbsbsbsbsbsb')
+        console.log(item1)
+      }
+      
+      if (!item1.isAllDay) {
+        beginTime1 = new Date(item1.beginTime)
+        beginTime1.setHours(new Date(item1.beginTime).getHours())
+        beginTime1.setMinutes(new Date(item1.beginTime).getMinutes())
+        beginTime1.setSeconds(new Date(item1.beginTime).getSeconds())
+        beginTime1 = new Date(beginTime1).getTime()
+      }else{
+        console.log('全天事件1')
+      }
+      let beginTime2 = 0
+      if (!item2.isAllDay) {
+        beginTime2 = new Date(item2.beginTime)
+        beginTime2.setHours(new Date(item2.beginTime).getHours())
+        beginTime2.setMinutes(new Date(item2.beginTime).getMinutes())
+        beginTime2.setSeconds(new Date(item2.beginTime).getSeconds())
+        beginTime2 = new Date(beginTime2).getTime()
+      } else {
+        console.log('全天事件2')
+      }
+      //如果beginTim1大于beginTime2交换位置
+      if (beginTime1 > beginTime2){
+        let temp = planList[j]
+        planList[j] = planList[i] 
+        planList[i] = temp
+       
+      }
+    }
+  }
+
+  return planList
 }
 
 const updatePlan = function(plan){
@@ -180,11 +300,24 @@ const deletePlan = function (key,planId){
   console.log("--------------------------")
 }
 
+const deleteRepeatPlanByDay = function (key, planId, deletedDays) {
+  //如果plan中有一个属性，completedDays，保存完成了的日期
+  let plans = wx.getStorageSync(key)
+  for (let i = 0; i < plans.length; i++) {
+    let item = JSON.parse(plans[i])
+    if (item.planId === planId) {
+      // 找到了
+      item.deletedDays = deletedDays
+      plans[i] = JSON.stringify(item)
+      wx.setStorageSync(key, plans)
+      break;
+    }
+  }
+}
+
 
 const compeltePlan = function (key,planId,completedDays){
   //如果plan中有一个属性，completedDays，保存完成了的日期
-
-
   let plans = wx.getStorageSync(key)
   for (let i = 0; i < plans.length; i++) {
     let item = JSON.parse(plans[i])
@@ -205,6 +338,7 @@ module.exports = {
   getPlan,
   updatePlan,
   deletePlan,
-  compeltePlan
+  compeltePlan,
+  deleteRepeatPlanByDay
 }
 

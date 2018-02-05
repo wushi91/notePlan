@@ -38,8 +38,14 @@
   margin-bottom: 60rpx;
 }
 .time-wrapper{
-  margin: 10rpx 0 60rpx 0;
+  margin: 10rpx 0 0rpx 0;
 }
+
+
+.remind-type{
+  margin-top: 60rpx;
+}
+
 .plan-type{
   margin: 60rpx 0;
 }

@@ -17,7 +17,7 @@ const formatJustTime = date => {
 }
 
 const formatTimeChinaYueRi = date => {
-  return (date.getMonth() + 1) + "月" + date.getDate() + "日"
+  return date.getFullYear()+"年"+(date.getMonth() + 1) + "月" + date.getDate() + "日"
 }
 
 const formatNumber = n => {

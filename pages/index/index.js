@@ -11,7 +11,7 @@ Page({
     
     showPlanPage:true,
     planList:[],
-    selectDay: { year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate() },
+    selectDay: {},
     week0: {},
     week1: {},
     week2: {},
@@ -63,10 +63,15 @@ Page({
 
   toPlanDetailPage: function (plan) {
     wx.navigateTo({
-      url: "/pages/plan/planDetail/planDetail?key=" + plan.key+"&planId="+plan.planId
+      url: "/pages/plan/planDetail/planDetail?key=" + plan.key + "&planId=" + plan.planId + "&year=" + this.data.selectDay.year + '&month=' + this.data.selectDay.month + '&day=' + this.data.selectDay.day
     })
   },
 
+  setNavigationBarTitle(year,month){
+    wx.setNavigationBarTitle({
+      title: year+" 年 "+month+" 月 "
+    })
+  },
   catchItemTab(e) {
     switch (e.detail.tabItem) {
       case -1://
@@ -119,9 +124,15 @@ Page({
       selectDay: selectDay,
       planList: e.detail.data.planList
     })
+    this.setNavigationBarTitle(selectDay.year, selectDay.month+1)
   },
 
   onLoad: function () {
+    let selectDay = { year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate() }
+    this.setData({
+      selectDay: selectDay
+    })
+    this.setNavigationBarTitle(selectDay.year, selectDay.month + 1)
     this.initData()
     app.updatePlanList = this.initData//监听
   },

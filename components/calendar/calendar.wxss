@@ -6,7 +6,7 @@ swiper,swiper-item{
 }
 
 .week{
-  padding:24rpx 0 20rpx 0;
+  padding:6rpx 0 6rpx 0;
   display: flex;
   justify-content:space-around;
   background: linear-gradient(#45BFF7, #30B0F0);
@@ -15,10 +15,11 @@ swiper,swiper-item{
 }
 
 .day{
-  width: 14.28%;
+  width: 80rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 8rpx;
 }
 .day text{
   color:rgba(23,116,163,1);
@@ -26,6 +27,9 @@ swiper,swiper-item{
   line-height:28rpx;
 }
 
+.day text:nth-child(1){
+  margin-top: 18rpx;
+}
 .day text:nth-child(2){
   margin-top: 30rpx;
   font-size:36rpx;
@@ -40,11 +44,36 @@ swiper,swiper-item{
   height: 6rpx;
 }
 
-
+.select-day{
+  background-color: #1774A3;
+}
 .select-day text{
-  color:#FFFFFF;
+  color:#45BFF7;
 }
 .select-day .point{
-  background-color: #FFFFFF;
+  background-color: #45BFF7;
 }
 
+/* .today.select-day{
+  background-color: rgba(0, 0, 0, 0);
+
+}
+.today.select-day text{
+  color: white;
+}
+.today.select-day .point{
+  background-color: white;
+
+} */
+
+.today{
+  background-color: rgba(0, 0, 0, 0);
+
+}
+.today text{
+  color: white;
+}
+.today .point{
+  background-color: white;
+
+}

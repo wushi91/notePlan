@@ -22,7 +22,7 @@ input{
 .all-day-wrapper{
   display: flex;
   background-color: white;
- 
+  height: 96rpx;
 }
 .all-day-wrapper text{
   margin-top: 26rpx;
@@ -31,7 +31,7 @@ input{
 }
 image.checkbox{
   width: 120rpx;
-  height: 120rpx;
+  height: 80rpx;
   margin-right: 10rpx;
 }
 

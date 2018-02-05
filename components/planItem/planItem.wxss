@@ -1,9 +1,43 @@
 /* components/planItem/planItem.wxss */
 
+/*普通的日程  */
+.plan-item{
+  box-sizing: border-box;
+  position: relative;
+  background-color: white;
+  border-radius: 8rpx;
+  display: flex;
+  border: 2px solid white;
+  
+}
+
+.plan-item-wrapper:active .plan-item{
+  background-color: #E6E6E6;
+  border: 2px solid #E6E6E6;
+}
+
+.plan-item-wrapper:active .plan-item-shadow{
+  margin-top: 0px;
+  border-radius: 8rpx;
+  height: 0px;
+  box-shadow: 0 0rpx 0rpx rgba(50, 50, 51, 0.4);
+ 
+}
+
+
 .checkbox-wrapper{
   height: 45rpx;
   display: flex;
   align-items: center;
+  padding-top: 24rpx;
+  padding-bottom: 24rpx;
+  padding-left: 36rpx;
+  position: absolute;
+  
+}
+.content-wrapper{
+  padding: 24rpx 0;
+  margin-left: 86rpx;
 }
 
 .checkbox{
@@ -34,30 +68,7 @@ image.completed{
 }
 
 
-/*普通的日程  */
-.plan-item{
-  box-sizing: border-box;
-  position: relative;
-  background-color: white;
-  border-radius: 8rpx;
-  padding: 24rpx 50rpx 24rpx 36rpx;
-  display: flex;
-  border: 2px solid white;
-  
-}
 
-.plan-item-wrapper:active .plan-item{
-  background-color: #E6E6E6;
-  border: 2px solid #E6E6E6;
-}
-
-.plan-item-wrapper:active .plan-item-shadow{
-  margin-top: 0px;
-  border-radius: 8rpx;
-  height: 0px;
-  box-shadow: 0 0rpx 0rpx rgba(50, 50, 51, 0.4);
- 
-}
 
 .content-wrapper{
   display: flex;
