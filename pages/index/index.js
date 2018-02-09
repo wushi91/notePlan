@@ -67,6 +67,12 @@ Page({
     })
   },
 
+  toAdvicePage: function () {
+    wx.navigateTo({
+      url: "/pages/advice/advice"
+    })
+  },
+
   setNavigationBarTitle(year,month){
     wx.setNavigationBarTitle({
       title: year+" 年 "+month+" 月 "
@@ -89,9 +95,12 @@ Page({
           this.setData({
             showPlanPage: true
           })
-          wx.setNavigationBarTitle({
-            title: "行动管理笔记"
-          })
+          console.log(this.data.selectDay)
+          this.initData()
+          this.setNavigationBarTitle(this.data.selectDay.year, this.data.selectDay.month + 1)
+          // wx.setNavigationBarTitle({
+          //   title: "行动管理笔记"
+          // })
         }
         
         console.log('点击了日程列表')
@@ -135,6 +144,12 @@ Page({
     this.setNavigationBarTitle(selectDay.year, selectDay.month + 1)
     this.initData()
     app.updatePlanList = this.initData//监听
+
+
+    let hasLogin = wx.getStorageSync('hasLogin')
+    if (hasLogin){
+      this.toWxLogin()
+    }
   },
   
   /**
@@ -197,8 +212,23 @@ Page({
     plan.content = encodeURIComponent(plan.content)
     plan.remark = encodeURIComponent(plan.remark)
     this.toPlanDetailPage(plan)
-  }
+  },
 
+  toWxLogin(){
+    
+    wx.getUserInfo({
+      success: res => {
+        let userInfo = res.userInfo
+        console.log(userInfo)
+        this.setData({
+          username: userInfo.nickName,
+          headerimagesrc :userInfo.avatarUrl
+        })
+        wx.setStorageSync('hasLogin', "yes")
+       
+      }
+    })
+  }
   
   
 })

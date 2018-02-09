@@ -1,0 +1,40 @@
+/* pages/advice/advice.wxss */
+
+/*remark-wrapper  */
+.remark-wrapper{
+ 
+  height: 240rpx;
+  background-color: white;
+   position: relative; 
+}
+
+.remark-wrapper textarea{
+  width: 100%;
+  height: 100%;
+  line-height: 48rpx;
+}
+
+.remark-wrapper text.length-tip{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+
+.content-wrapper{
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 30rpx;
+}
+input{
+  width: 100%;
+  height: 100%;
+}
+
+button{
+  margin-top: 128rpx;
+}

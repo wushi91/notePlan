@@ -22,12 +22,12 @@
   <view class='user-info-wrapper'>
     <image class='header-image' 
            src="{{headerimagesrc}}" 
-           bindtap="toMyUserLogin"></image>
-    <text class='username' bindtap="toMyUserLogin">{{ username }}</text>
+           bindtap="toWxLogin"></image>
+    <text class='username' bindtap="toWxLogin">{{ username }}</text>
   </view>
 
   <view class='item-wrapper'>
-    <view class='item'>
+    <view class='item' bindtap='toAdvicePage'>
       <text class='font-normal-black-32'>意见反馈</text>
       <image src='/images/icon-arrow-right.png'></image>
     </view>

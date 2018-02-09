@@ -44,15 +44,22 @@ swiper,swiper-item{
   height: 6rpx;
 }
 
-.select-day{
+/* .select-day{
   background-color: #1774A3;
-}
-.select-day text{
+} */
+.select-day text:nth-child(2){
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border-radius: 50%;
   color:#45BFF7;
+  background-color: #1774A3;
+  font-size:30rpx;
+  line-height:50rpx;
 }
-.select-day .point{
+/* .select-day .point{
   background-color: #45BFF7;
-}
+} */
 
 /* .today.select-day{
   background-color: rgba(0, 0, 0, 0);
@@ -73,6 +80,14 @@ swiper,swiper-item{
 .today text{
   color: white;
 }
+
+.today text:nth-child(2){
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  font-size:36rpx;
+  line-height:50rpx;
+}
+
 .today .point{
   background-color: white;
 

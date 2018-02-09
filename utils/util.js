@@ -1,3 +1,8 @@
+
+const planUtil = require('../utils/planUtil.js')
+const dbUtil = require('../utils/dbUtil.js')
+const selectionTimeUtil = require('../components/selectionTimeItem/selectionTimeUtil.js')
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -126,6 +131,44 @@ const getChinaWeekNum= (date,before)=>{
   
 // }
 
+const firstLaunch = function(){
+
+  let isFirstLaunch = !(wx.getStorageSync('FirstLaunch'))
+
+  if (isFirstLaunch){
+    let content = ''
+    let remark = ''
+    let isAllDay = true
+    let beginTime = selectionTimeUtil.getItemTime(new Date())
+    let overTime = selectionTimeUtil.getItemTime(new Date())
+
+
+    let repeatType = planUtil.REPEATTYPES[0]
+    let palnType = planUtil.PLANTYPES[0]
+    let remindType = planUtil.REMINDTYPES[0]
+
+    let plan = {
+      content: content,
+      remark: remark,
+      isAllDay: isAllDay,
+      beginTime: beginTime,
+      overTime: overTime,
+      repeatType: repeatType,
+      palnType: palnType,
+      remindType: remindType
+    }
+    plan.content = "点击底部+添加新日程"
+    dbUtil.savePlan(plan)
+    plan.content = "点击该卡片查看日程详情"
+    dbUtil.savePlan(plan)
+    plan.content = "点击左侧方框标记为完成"
+    dbUtil.savePlan(plan)
+    wx.setStorageSync('FirstLaunch', "FirstLaunch")
+    wx.setStorageSync('version', "v0.1")
+  }
+  
+  
+}
 
 module.exports = {
   formatTime: formatTime,
@@ -133,5 +176,6 @@ module.exports = {
   formatJustTime,
   formatTimeChinaYueRi,
   formatNumber,
-  isContainDate
+  isContainDate,
+  firstLaunch
 }

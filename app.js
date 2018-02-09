@@ -1,11 +1,14 @@
 //app.js
+const util = require('./utils/util.js')
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
 
+    util.firstLaunch()
     // 登录
     wx.login({
       success: res => {

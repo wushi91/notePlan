@@ -147,7 +147,7 @@ Page({
   onLoad: function (options) {
 
     // console.log(options.plan)
-
+    
     
     let key = options.key
     let planId = options.planId
@@ -156,6 +156,7 @@ Page({
     let plan = JSON.parse(dbUtil.getPlan(key, planId))
     plan.content = decodeURIComponent(plan.content)
     plan.remark = decodeURIComponent(plan.remark)
+
     let currentTime = new Date(options.year + '-' + (Number(options.month) + 1) + '-' + options.day).getTime()
     let currentTime2359 = new Date(options.year + '-' + (Number(options.month) + 1) + '-' + options.day)
     currentTime2359.setHours(23)
@@ -165,9 +166,9 @@ Page({
     console.log("currentTime2359")
     console.log(currentTime2359)
     // 开始时间小于当天00:00，代表的是前天开始。那么当天显示00:00
-    if (new Date(plan.beginTime).getTime() < currentTime){
+    if (new Date(plan.beginTime).getTime() < currentTime) {
       plan._beginTime = "00:00"
-    }else{
+    } else {
       plan._beginTime = util.formatJustTime(new Date(plan.beginTime))
     }
     // 结束时间大于于当天23:59，代表的是后天结束。那么当天显示23:59
@@ -176,6 +177,11 @@ Page({
     } else {
       plan._overTime = util.formatJustTime(new Date(plan.overTime))
     }
+    if (new Date(plan.beginTime).getTime() < currentTime && new Date(plan.overTime).getTime() > currentTime2359) {
+      plan.isAllDay = true
+    } 
+    
+    
     // plan._beginTime = util.formatJustTime(new Date(plan.beginTime))
     // plan._overTime = util.formatJustTime(new Date(plan.overTime))
     plan._beginTimeText = util.formatTimeChinaYueRi(new Date(currentTime))//2018年12月1日
@@ -186,6 +192,30 @@ Page({
       date: { year: options.year, month: options.month, day: options.day}
     })
     
+  },
+
+
+  setTheBeginAndOverTime(){
+    let currentTime = new Date(options.year + '-' + (Number(options.month) + 1) + '-' + options.day).getTime()
+    let currentTime2359 = new Date(options.year + '-' + (Number(options.month) + 1) + '-' + options.day)
+    currentTime2359.setHours(23)
+    currentTime2359.setMinutes(59)
+    currentTime2359.setSeconds(59)
+    currentTime2359.setMilliseconds(999)
+    console.log("currentTime2359")
+    console.log(currentTime2359)
+    // 开始时间小于当天00:00，代表的是前天开始。那么当天显示00:00
+    if (new Date(plan.beginTime).getTime() < currentTime) {
+      plan._beginTime = "00:00"
+    } else {
+      plan._beginTime = util.formatJustTime(new Date(plan.beginTime))
+    }
+    // 结束时间大于于当天23:59，代表的是后天结束。那么当天显示23:59
+    if (new Date(plan.overTime).getTime() > currentTime2359) {
+      plan._overTime = "23:59"
+    } else {
+      plan._overTime = util.formatJustTime(new Date(plan.overTime))
+    }
   },
 
   /**

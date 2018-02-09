@@ -69,8 +69,6 @@ const getYearPlans = function (year, month, day, week) {
       plans.push(allYearPlans[i])
     }
   }
-  
-
 
   return plans
 }
@@ -91,10 +89,6 @@ const getWeekPlans = function (year, month, day, week) {
       plans.push(allWeekPlans[i])
     }
   }
-
-  return plans
-
-
 
   return plans
 }
@@ -218,8 +212,32 @@ const getPlanList = function(date){
   if (lianxuPlans) currentDayPlanList = currentDayPlanList.concat(lianxuPlans)
   
   // 做一次冒泡排序
-  
-  return maoPaoPaiXu(currentDayPlanList)
+  let planList = maoPaoPaiXu(currentDayPlanList);
+  let currentTime = new Date(year + '-' + month + '-' + day).getTime()
+  let currentTime2359 = new Date(year + '-' + month + '-' + day)
+  currentTime2359.setHours(23)
+  currentTime2359.setMinutes(59)
+  currentTime2359.setSeconds(59)
+  currentTime2359.setMilliseconds(999)
+  for (let i = 0; i < planList.length;i++){
+    let item = JSON.parse(planList[i])
+    if (new Date(item.beginTime).getTime() < currentTime && new Date(item.overTime).getTime() > currentTime2359) {
+      item.isAllDay = true;
+    }
+
+    if (new Date(item.beginTime).getTime() < currentTime) {
+      item.beginTime = currentTime
+    } 
+    // 结束时间大于于当天23:59，代表的是后天结束。那么当天显示23:59
+    if (new Date(item.overTime).getTime() > currentTime2359) {
+      item.overTime = currentTime2359
+    }
+
+    planList[i] = JSON.stringify(item)
+  }
+ 
+
+  return planList
   // return currentDayPlanList
 }
 
@@ -231,13 +249,6 @@ const  maoPaoPaiXu = function(planList){
       let item1 = JSON.parse(planList[i])
       let item2 = JSON.parse(planList[j])
       let beginTime1 = 0
-      if (item1.isAllDay){
-        console.log(item1)
-        console.log('----------')
-      }else{
-        console.log('sbsbsbsbsbsb')
-        console.log(item1)
-      }
       
       if (!item1.isAllDay) {
         beginTime1 = new Date(item1.beginTime)
